@@ -3,7 +3,7 @@ import AdSense from '../AdSense/AdSense';
 
 const InArticleMiddleAd = () => {
   return (
-    <div className="my-8 text-center ad-container">
+    <div className="ad-container my-8 text-center min-h-[250px]">
       <AdSense
         slotId="6185420156" // <-- GANTI DENGAN SLOT ID ANDA UNTUK POSISI INI
         format="fluid" // Format 'fluid' seringkali bagus untuk in-article

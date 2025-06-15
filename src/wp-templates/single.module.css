@@ -97,10 +97,9 @@
 .postContent img {
   max-width: 100%;
   height: auto;
-  display: block; /* Mencegah spasi ekstra di bawah gambar */
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-  border-radius: 8px; /* Opsional: membuat sudut gambar tumpul */
+  display: block;
+  margin: 2rem auto;
+  border-radius: 8px;
 }
 /* =============================================== */
 

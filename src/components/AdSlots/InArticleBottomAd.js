@@ -3,7 +3,7 @@ import AdSense from '../AdSense/AdSense';
 
 const InArticleBottomAd = () => {
   return (
-    <div className="my-5 text-center ad-container">
+    <div className="ad-container my-5 text-center min-h-[250px]">
       <AdSense
         slotId="4213849166" // <-- GANTI DENGAN SLOT ID ANDA UNTUK POSISI INI
         format="auto"
