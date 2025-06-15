@@ -1,3 +1,4 @@
+
 /* Nama File: src/components/Sidebar/Sidebar.module.css */
 /* Kode Lengkap dan Final - Penambahan z-index */
 
@@ -6,7 +7,7 @@
 }
   
 .widget {
-  background-color: #f9fafb;
+  background-color: #240f5e;
   border: 1px solid #e5e7eb;
   border-radius: 8px;
   padding: 1.5rem;
@@ -14,13 +15,17 @@
 }
 
 .widgetTitle {
-  font-family: var(--font-poppins);
-  font-size: 1.2rem;
-  font-weight: 700;
-  margin: 0 0 1.5rem 0;
-  padding-bottom: 0.75rem;
-  border-bottom: 2px solid #e5e7eb;
-  color: #111827;
+  font-family: var(--font-public-sans, sans-serif);
+  font-size: 1.2rem; /* Ukuran font sedikit diperbesar */
+  font-weight: 800;
+  margin: 0 0 2rem 0; /* Margin bawah diperbesar */
+  padding-bottom: 0;
+  border-bottom: none; /* [PERUBAHAN] Menghapus garis bawah */
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  /* [PERUBAHAN] Membuat judul berada di tengah */
+  text-align: center;
 }
 
 /* === PERBAIKAN FINAL DI SINI === */
@@ -29,6 +34,12 @@
   position: sticky;
   top: 100px; /* Jarak dari atas viewport */
   z-index: 10; /* Memberi tahu browser cara me-layer elemen ini. Nilainya lebih rendah dari header (100) */
+}
+.stickyAdWidget {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 100px;
+  z-index: 10;
 }
 /* =============================== */
 
@@ -73,7 +84,7 @@
 .postTitle {
   font-family: var(--font-poppins);
   font-weight: 600;
-  color: #374151;
+  color: #f6f8fa;
   text-decoration: none;
   line-height: 1.4;
   transition: color 0.2s;
@@ -81,7 +92,7 @@
 }
 
 .postTitle:hover {
-  color: #1d4ed8;
+  color: #0d0e0f;
 }
 
 .adContainer {

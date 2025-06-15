@@ -4,6 +4,7 @@ import { gql, useQuery } from '@apollo/client';
 import Link from 'next/link';
 // import { useRouter } from 'next/router'; // [PERBAIKAN] Hapus impor yang tidak digunakan
 import styles from './Sidebar.module.css';
+import SidebarAd from '../AdSlots/SidebarAd';
 
 const GET_POPULAR_POSTS = gql`
   query GetPopularPosts {
@@ -55,6 +56,13 @@ export default function Sidebar() {
             ))}
           </ol>
         )}
+      </div>
+    {/* [PERUBAHAN] 2. Tambahkan widget iklan di sini */}
+      <div className={styles.widget} style={{ background: '#f9fafb' }}>
+        <h3 className={styles.widgetTitle} style={{ color: '#111827', borderColor: '#e5e7eb' }}>
+          
+        </h3>
+        <SidebarAd />
       </div>
     </aside>
   );

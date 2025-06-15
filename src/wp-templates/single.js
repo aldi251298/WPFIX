@@ -1,10 +1,9 @@
-// Nama File: src/wp-templates/single.js
-// Status: Final dengan Perbaikan dan Implementasi next/image
+// src/wp-templates/single.js - Versi dengan struktur layout yang diperbaiki
 
 import { gql } from '@apollo/client';
-import { useEffect } from 'react'; // useRef dihapus karena tidak lagi digunakan
+import { useEffect } from 'react';
 import Head from 'next/head';
-import Image from 'next/image'; // [PERBAIKAN] Impor komponen Image dari Next.js
+import Image from 'next/image';
 import { FiClock } from 'react-icons/fi';
 import Comments from '../components/Comments/Comments';
 import RelatedPosts from '../components/RelatedPosts/RelatedPosts';
@@ -21,15 +20,13 @@ import InArticleBottomAd from '@/components/AdSlots/InArticleBottomAd';
 export default function Component(props) {
   const { loading, data } = props;
 
-  // useEffect untuk View Counter (Tidak ada perubahan)
+  // useEffect untuk View Counter
   useEffect(() => {
     if (loading || !data?.post?.databaseId) return;
     const databaseId = data.post.databaseId;
     const apiUrl = `${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-json/pvc/v1/posts/${databaseId}`;
     fetch(apiUrl, { method: 'POST' }).catch(console.error);
   }, [loading, data?.post?.databaseId]);
-
-  // [PERBAIKAN] useEffect untuk gambar responsif lama sudah dihapus.
 
   if (loading) {
     return <div>Loading...</div>;
@@ -49,7 +46,7 @@ export default function Component(props) {
 
   return (
     <>
-      <SEO seo={seo} />
+      <SEO seo={seo} post={post} />
       <Head>
         <link rel="amphtml" href={ampUrl} />
       </Head>
@@ -60,7 +57,6 @@ export default function Component(props) {
 
         <div className={styles.metaContainer}>
           <div className={styles.authorBox}>
-            {/* [PERBAIKAN] Menggunakan next/image untuk avatar penulis */}
             {authorImage?.url && (
               <Image
                 src={authorImage.url}
@@ -87,9 +83,9 @@ export default function Component(props) {
           </div>
         </div>
 
-        <div className={styles.mainLayout}>
+        {/* [PERUBAHAN UTAMA] Bungkus semua konten dalam div ini */}
+        <div className={styles.contentLayout}>
           <article className={styles.postContent}>
-            {/* [PERBAIKAN] Menggunakan next/image untuk Gambar Unggulan */}
             {featuredImage?.node?.sourceUrl && (
               <Image
                 src={featuredImage.node.sourceUrl}
@@ -101,30 +97,29 @@ export default function Component(props) {
               />
             )}
             
-            {/* Iklan di atas tulisan */}
             <InArticleTopAd />
-
-            {/* Konten Artikel dirender oleh ContentRenderer (sudah termasuk iklan tengah) */}
             <ContentRenderer htmlContent={content} />
-
-            {/* Iklan di bawah tulisan */}
             <InArticleBottomAd />
-
-            {/* [PERBAIKAN] Baris di bawah ini dihapus untuk menghindari konten duplikat */}
-            {/* <div ref={contentRef} dangerouslySetInnerHTML={{ __html: content }} /> */}
           </article>
-          <Sidebar />
-        </div>
+          
+          {/* [PERUBAHAN UTAMA] Pindahkan Sidebar ke luar dan paling bawah */}
+          <aside className={styles.sidebar}>
+            <Sidebar />
+          </aside>
 
-        <ShareButtons title={title} url={postUrl} />
-        <Comments comments={comments?.nodes} postId={databaseId} />
-        <RelatedPosts categories={categories?.nodes} currentPostId={databaseId} />
+          {/* [PERUBAHAN UTAMA] Bungkus konten bawah dalam satu div */}
+          <div className={styles.postFooter}>
+            <ShareButtons title={title} url={postUrl} />
+            <Comments comments={comments?.nodes} postId={databaseId} />
+            <RelatedPosts categories={categories?.nodes} currentPostId={databaseId} />
+          </div>
+        </div>
       </main>
     </>
   );
 }
 
-// Helper function (Tidak ada perubahan)
+// Helper function
 function calculateReadingTime(htmlContent) {
   if (!htmlContent) return '1 min read';
   const text = htmlContent.replace(/<[^>]+>/g, '');
@@ -133,12 +128,13 @@ function calculateReadingTime(htmlContent) {
   return `${Math.ceil(wordCount / wordsPerMinute)} min read`;
 }
 
-// [PERBAIKAN] Query GraphQL diupdate untuk mengambil detail gambar yang dibutuhkan oleh next/image
+// Query GraphQL tidak berubah
 Component.query = gql`
   fragment GetPostFields on Post {
     title
     content
     date
+    modified
     databaseId
     uri
     author {
@@ -213,7 +209,7 @@ Component.query = gql`
   }
 `;
 
-// Variabel Query (Tidak ada perubahan)
+// Variabel Query tidak berubah
 Component.variables = ({ databaseId }, ctx) => {
   return {
     databaseId,

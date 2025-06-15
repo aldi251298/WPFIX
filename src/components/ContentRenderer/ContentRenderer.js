@@ -1,4 +1,4 @@
-// src/components/ContentRenderer/ContentRenderer.js (Versi Final Lebih Tangguh)
+// src/components/ContentRenderer/ContentRenderer.js
 
 import React from 'react';
 import parse, { domToReact } from 'html-react-parser';
@@ -6,14 +6,17 @@ import Image from 'next/image';
 import InArticleMiddleAd from '../AdSlots/InArticleMiddleAd';
 
 const ContentRenderer = ({ htmlContent }) => {
-  if (!htmlContent) return null;
+  // Ensure htmlContent is a string before parsing to prevent errors.
+  if (typeof htmlContent !== 'string') {
+    return null;
+  }
   
   let pCount = 0;
   const AD_AFTER_PARAGRAPH = 6;
 
   const options = {
     replace: (domNode) => {
-      // 1. Logika untuk Iklan di tengah artikel (tidak berubah)
+      // Logic to insert an ad after the 6th paragraph
       if (domNode.name === 'p') {
         pCount++;
         if (pCount === AD_AFTER_PARAGRAPH) {
@@ -26,16 +29,16 @@ const ContentRenderer = ({ htmlContent }) => {
         }
       }
 
-      // 2. [PERBAIKAN] Logika baru yang lebih fleksibel untuk gambar
+      // Logic to replace <img> tags with next/image for optimization
       if (domNode.name === 'img' && domNode.attribs) {
         const { src, alt, width, height, class: className } = domNode.attribs;
 
-        // Jika SEMUA data ada untuk optimasi, gunakan next/image
+        // Use next/image if width and height are available
         if (src && width && height) {
           return (
             <Image
               src={src}
-              alt={alt || 'Gambar dari artikel'}
+              alt={alt || 'Image from article'}
               width={parseInt(width, 10)}
               height={parseInt(height, 10)}
               className={className}
@@ -45,12 +48,12 @@ const ContentRenderer = ({ htmlContent }) => {
           );
         }
 
-        // [FALLBACK] Jika width/height tidak ada, gunakan tag <img> biasa agar gambar tidak hilang
+        // Fallback to a standard <img> tag if dimensions are missing
         if (src) {
             return (
                 <img
                     src={src}
-                    alt={alt || 'Gambar dari artikel'}
+                    alt={alt || 'Image from article'}
                     className={className}
                     loading="lazy"
                 />
@@ -60,6 +63,7 @@ const ContentRenderer = ({ htmlContent }) => {
     },
   };
 
+  // The main return statement that parses the content
   return <div>{parse(htmlContent, options)}</div>;
 };
 

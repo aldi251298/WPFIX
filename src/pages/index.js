@@ -1,5 +1,4 @@
-// Nama File: src/pages/index.js
-// Status: Final Lengkap dengan `next/image`
+// src/pages/index.js - Versi Final dengan Perbaikan Query Homepage
 
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 import Link from 'next/link';
@@ -9,7 +8,7 @@ import SEO from '../components/SEO';
 import Sidebar from '../components/Sidebar/Sidebar';
 
 
-// Utility functions
+// Utility functions (tidak berubah)
 function formatRelativeTime(dateString) {
   const date = new Date(dateString);
   const now = new Date();
@@ -34,11 +33,15 @@ function getTrimmedExcerpt(excerpt) {
   return text;
 }
 
-// [PERUBAHAN] Query diupdate untuk mengambil detail gambar (altText, mediaDetails)
+// [PERUBAHAN 1] Query diubah untuk mengambil data SEO dari laman yang disetel sebagai "front page"
 const GET_HOMEPAGE_BLUEPRINT_DATA = gql`
   query GetHomepageBlueprintData($listAfter: String) {
-    page(id: "home", idType: URI) {
-      seo { title metaDesc canonical }
+    frontPage: page(id: "/", idType: URI) {
+      seo { 
+        title 
+        metaDesc 
+        canonical 
+      }
     }
     megaHeroPosts: posts(first: 5) {
       nodes { id title uri excerpt(format: RENDERED) date categories(first: 1) { nodes { name uri } } 
@@ -63,7 +66,8 @@ const GET_HOMEPAGE_BLUEPRINT_DATA = gql`
 export default function FrontPage({ data }) {
   if (!data) return <p>Halaman sedang dimuat...</p>;
 
-  const seo = data.page?.seo;
+  // [PERUBAHAN 2] Mengambil data seo dari 'data.frontPage' bukan 'data.page'
+  const seo = data.frontPage?.seo;
   const megaHeroPosts = data.megaHeroPosts?.nodes ?? [];
   const gridPosts = data.gridPosts?.nodes ?? [];
   const latestPostsData = data.latestPostsList;
@@ -110,7 +114,6 @@ export default function FrontPage({ data }) {
         
         {gridPosts.length > 0 && (
           <section className={styles.gridSection}>
-            {/* [PERBAIKAN] Ganti ' dengan &apos; */}
             <h2 className={styles.sectionTitle}>Editor&apos;s Picks</h2>
             <div className={styles.postsGrid}>
               {gridPosts.map(post => {

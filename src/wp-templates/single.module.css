@@ -1,5 +1,4 @@
-/* Nama File: src/wp-templates/single.module.css */
-/* Kode Lengkap dan Final - Penambahan styling untuk gambar responsif */
+/* src/wp-templates/single.module.css - Versi dengan perbaikan layout mobile */
 
 .container {
   max-width: var(--max-width-container);
@@ -69,12 +68,11 @@
   gap: 0.3rem;
 }
 
-.mainLayout {
+/* [PERUBAHAN UTAMA] .mainLayout diganti menjadi .contentLayout */
+.contentLayout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 320px;
-  gap: 3rem;
+  grid-template-columns: 1fr; /* Default 1 kolom untuk mobile */
   margin-top: 1.5rem;
-  align-items: start;
 }
 
 .postContent {
@@ -91,9 +89,6 @@
   margin-bottom: 2rem;
 }
 
-/* === PERBAIKAN & PENAMBAHAN KODE CSS DI SINI === */
-/* Styling ini membuat semua gambar di dalam konten menjadi responsif. */
-/* Ini menggantikan fungsi useEffect yang sebelumnya ada di single.js. */
 .postContent img {
   max-width: 100%;
   height: auto;
@@ -101,7 +96,6 @@
   margin: 2rem auto;
   border-radius: 8px;
 }
-/* =============================================== */
 
 .postContent p {
   margin-bottom: 1.5rem;
@@ -122,8 +116,6 @@
   word-break: break-word;
 }
 
-/* Aturan lama untuk figure bisa dihapus jika aturan .postContent img sudah mencakup, */
-/* tapi tidak masalah jika tetap ada sebagai fallback. */
 .postContent figure,
 .postContent .wp-block-image img {
   margin-top: 2rem;
@@ -144,11 +136,32 @@
   overflow-x: auto;
 }
 
-@media (max-width: 820px) {
-  .mainLayout {
-    grid-template-columns: 1fr;
-    gap: 0;
+/* [PERUBAHAN UTAMA] Media query untuk mengatur layout desktop */
+@media (min-width: 821px) {
+  .contentLayout {
+    grid-template-columns: minmax(0, 1fr) 320px; /* 2 kolom di desktop */
+    grid-template-areas:
+      "article sidebar"
+      "footer  sidebar"; /* Mendefinisikan area grid */
+    align-items: start;
+    gap: 3rem;
   }
+
+  .postContent {
+    grid-area: article; /* Menempatkan artikel di area 'article' */
+  }
+
+  .sidebar {
+    grid-area: sidebar; /* Menempatkan sidebar di area 'sidebar' */
+    
+  }
+
+  .postFooter {
+    grid-area: footer; /* Menempatkan konten bawah di area 'footer' */
+  }
+}
+
+@media (max-width: 820px) {
   .title {
     font-size: 2.2rem;
   }

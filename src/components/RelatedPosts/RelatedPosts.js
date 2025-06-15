@@ -7,7 +7,7 @@ import styles from './RelatedPosts.module.css';
 // Query untuk mengambil post terkait
 const GET_RELATED_POSTS = gql`
   query GetRelatedPosts($categoryIn: [ID!], $notIn: [ID!]) {
-    posts(where: { categoryIn: $categoryIn, notIn: $notIn }, first: 3) {
+    posts(where: { categoryIn: $categoryIn, notIn: $notIn }, first: 4) {
       nodes {
         id
         title

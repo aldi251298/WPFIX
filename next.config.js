@@ -12,6 +12,7 @@ const nextConfig = {
         port: '',
         pathname: '/wp-content/uploads/**',
       },
+    
       // [PERBAIKAN DI SINI] Tambahkan blok ini untuk mengizinkan Gravatar
       {
         protocol: 'https',
@@ -20,6 +21,17 @@ const nextConfig = {
         pathname: '/avatar/**',
       },
     ],
+  },
+
+
+ // ### TAMBAHKAN BLOK INI ###
+  async rewrites() {
+    return [
+      {
+        source: '/:path*/amp', // Tangkap semua URL yang berakhiran /amp
+        destination: '/amp?uri=:path*', // Arahkan ke halaman /amp dengan path asli sebagai parameter
+      },
+    ]
   },
 };
 
