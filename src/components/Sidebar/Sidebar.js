@@ -1,11 +1,10 @@
-// src/components/Sidebar/Sidebar.js (Diedit untuk menghapus AdSense)
+// src/components/Sidebar/Sidebar.js
 
 import { gql, useQuery } from '@apollo/client';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router'; // [PERBAIKAN] Hapus impor yang tidak digunakan
 import styles from './Sidebar.module.css';
 
-// Query untuk mengambil postingan (tidak perlu diubah)
 const GET_POPULAR_POSTS = gql`
   query GetPopularPosts {
     posts(first: 20) {
@@ -23,7 +22,7 @@ const GET_POPULAR_POSTS = gql`
 
 export default function Sidebar() {
   const { data, loading, error } = useQuery(GET_POPULAR_POSTS);
-  const router = useRouter();
+  // const router = useRouter(); // [PERBAIKAN] Hapus variabel yang tidak digunakan
   
   if (error) {
     console.error("Error fetching popular posts for sidebar:", error);
@@ -32,14 +31,12 @@ export default function Sidebar() {
   
   const allPosts = data?.posts?.nodes ?? [];
 
-  // Logika untuk mengurutkan dan mengambil 6 postingan teratas
   const sortedPopularPosts = [...allPosts]
     .sort((a, b) => (b.viewCount?.viewCount || 0) - (a.viewCount?.viewCount || 0))
     .slice(0, 6);
 
   return (
     <aside className={styles.sidebar}>
-      {/* === WIDGET 1: TRENDING POSTS === */}
       <div className={styles.widget}>
         <h3 className={styles.widgetTitle}>Trending</h3>
         {loading ? (
@@ -59,9 +56,6 @@ export default function Sidebar() {
           </ol>
         )}
       </div>
-
-      {/* Widget Iklan AdSense telah dihapus dari sini */}
-      
     </aside>
   );
 }

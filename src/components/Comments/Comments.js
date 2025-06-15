@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
+import Image from 'next/image'; // [PERBAIKAN] Impor Image
 import styles from './Comments.module.css';
 
 const SUBMIT_COMMENT_MUTATION = gql`
@@ -69,7 +70,7 @@ export default function Comments({ comments = [], postId }) {
         {comments.length > 0 ? (
           comments.map((comment) => (
             <div key={comment.id} className={styles.comment}>
-              <img src={comment.author.node.avatar.url} alt={comment.author.node.name} className={styles.avatar} />
+              <Image src={comment.author.node.avatar.url} alt={comment.author.node.name} width={40} height={40} className={styles.avatar} />
               <div className={styles.commentBody}>
                 <div className={styles.commentHeader}>
                   <strong className={styles.authorName}>{comment.author.node.name}</strong>

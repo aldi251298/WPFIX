@@ -8,6 +8,7 @@ import Nav from './Nav';
 import SearchForm from '../SearchForm'; // Kita akan gunakan komponen search form
 import styles from './Header.module.css';
 import { FiMenu, FiSearch, FiX } from 'react-icons/fi'; // Import ikon
+import Image from 'next/image'; // [PERBAIKAN] Impor Image
 
 export default function Header() {
   const router = useRouter();
@@ -43,7 +44,7 @@ export default function Header() {
             <div className={styles.headerLeft}>
               <div className={styles.logoContainer}>
                 <Link href="/">
-                  <img src="/logo.png" alt="Site Logo" className={styles.logoImage} />
+                  <Image src="/logo.png" alt="Site Logo" width={140} height={35} className={styles.logoImage} priority />
                 </Link>
               </div>
               <SearchForm />
@@ -62,7 +63,7 @@ export default function Header() {
             </div>
             <div className={styles.mobileLogo}>
               <Link href="/">
-                <img src="/logo.png" alt="Site Logo" className={styles.logoImage} />
+                <Image src="/logo.png" alt="Site Logo" width={140} height={35} className={styles.logoImage} priority />
               </Link>
             </div>
             <div className={styles.mobileSearchIcon}>

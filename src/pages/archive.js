@@ -3,25 +3,15 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useState } from 'react';
 import styles from './archive.module.css';
+import Image from 'next/image';
 
 const ALL_POSTS_QUERY = gql`
   query AllPosts($after: String) {
     posts(first: 6, after: $after) {
-      nodes {
-        id
-        title
-        uri
-        date
-        featuredImage {
-          node {
-            sourceUrl
-          }
-        }
+      nodes { id title uri date 
+        featuredImage { node { altText sourceUrl mediaDetails { width height } } }
       }
-      pageInfo {
-        hasNextPage
-        endCursor
-      }
+      pageInfo { hasNextPage endCursor }
     }
   }
 `;
@@ -64,11 +54,7 @@ export default function ArchivePage() {
           {allPosts.map((post) => (
             <div key={post.id} className={styles.card}>
               <Link href={post.uri}>
-                <img
-                  src={post.featuredImage?.node.sourceUrl || '/placeholder-image.png'}
-                  alt={post.title}
-                  className={styles.cardImage}
-                />
+                <Image src={image.sourceUrl} alt={image.altText || post.title} width={image.mediaDetails.width} height={image.mediaDetails.height} className={styles.cardImage} />
               </Link>
               <div className={styles.cardContent}>
                 <h3 className={styles.cardTitle}>

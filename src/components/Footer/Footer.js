@@ -2,6 +2,7 @@
 
 import { gql, useQuery } from '@apollo/client';
 import Link from 'next/link';
+import Image from 'next/image'; // [PERBAIKAN] Impor Image
 import styles from './Footer.module.css';
 import { FaFacebookF, FaTwitter, FaInstagram, FaYoutube } from 'react-icons/fa';
 
@@ -37,7 +38,7 @@ export default function Footer() {
 
         {/* Kolom 1: Tentang & Logo */}
         <div className={styles.footerColumn}>
-          <img src="/logo.png" alt="Logo Situs Anda" className={styles.footerLogo} />
+          <Image src="/logo.png" alt="Logo Situs Anda" width={140} height={35} className={styles.footerLogo} />
           <p>Portal berita terkini dan terpercaya yang menyajikan informasi dari berbagai sudut pandang.</p>
           <div className={styles.socialLinks}>
             <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"><FaFacebookF /></a>

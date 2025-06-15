@@ -1,7 +1,7 @@
-// src/components/AdSense/AdSense.js (Versi Final dengan Placeholder)
+// src/components/AdSense/AdSense.js
 
 import { useEffect } from 'react';
-import AdPlaceholder from './AdPlaceholder'; // <-- 1. Impor komponen placeholder
+import AdPlaceholder from './AdPlaceholder';
 
 const AdSense = ({
   slotId,
@@ -10,35 +10,35 @@ const AdSense = ({
   style = { display: 'block' },
   ...props
 }) => {
-  // 2. Tambahkan kondisi pengecekan di sini
-  // Jika variabel lingkungan tidak di-set ke 'true', tampilkan placeholder dan hentikan eksekusi.
-  if (process.env.NEXT_PUBLIC_ADSENSE_ENABLED !== 'true') {
-    return <AdPlaceholder />;
-  }
+  const showAd = process.env.NEXT_PUBLIC_ADSENSE_ENABLED === 'true';
 
-  // Kode di bawah ini hanya akan berjalan di lingkungan production (live)
+  // [PERBAIKAN] useEffect sekarang dipanggil tanpa kondisi di top-level
   useEffect(() => {
-    try {
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (err) {
-      console.error(err);
+    // Kondisi pengecekan dipindahkan ke dalam hook
+    if (showAd) {
+      try {
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+      } catch (err) {
+        console.error(err);
+      }
     }
-  }, []);
+  }, [showAd]); // Tambahkan showAd sebagai dependency
 
-  const publisherId = "ca-pub-4083225081523366"; // GANTI DENGAN PUBLISHER ID ANDA
-
-  return (
+  // [PERBAIKAN] Gunakan ternary operator untuk menentukan apa yang akan dirender
+  return showAd ? (
     <div {...props}>
       <ins
         className="adsbygoogle"
         style={style}
-        data-ad-client={publisherId}
+        data-ad-client={`ca-pub-4083225081523366`} // GANTI DENGAN PUBLISHER ID ANDA
         data-ad-slot={slotId}
         data-ad-format={format}
         data-full-width-responsive="true"
         {...(layoutKey && { 'data-ad-layout-key': layoutKey })}
       ></ins>
     </div>
+  ) : (
+    <AdPlaceholder />
   );
 };
 

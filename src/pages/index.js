@@ -110,7 +110,8 @@ export default function FrontPage({ data }) {
         <HomepageLeaderboardAd />
         {gridPosts.length > 0 && (
           <section className={styles.gridSection}>
-            <h2 className={styles.sectionTitle}>Editor's Picks</h2>
+            {/* [PERBAIKAN] Ganti ' dengan &apos; */}
+            <h2 className={styles.sectionTitle}>Editor&apos;s Picks</h2>
             <div className={styles.postsGrid}>
               {gridPosts.map(post => {
                  const image = post.featuredImage?.node;
