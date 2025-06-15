@@ -7,7 +7,7 @@ import Image from 'next/image';
 import styles from '../wp-templates/front-page.module.css';
 import SEO from '../components/SEO';
 import Sidebar from '../components/Sidebar/Sidebar';
-import HomepageLeaderboardAd from '@/components/AdSlots/HomepageLeaderboardAd';
+
 
 // Utility functions
 function formatRelativeTime(dateString) {
@@ -107,7 +107,7 @@ export default function FrontPage({ data }) {
             </div>
           </section>
         )}
-        <HomepageLeaderboardAd />
+        
         {gridPosts.length > 0 && (
           <section className={styles.gridSection}>
             {/* [PERBAIKAN] Ganti ' dengan &apos; */}
