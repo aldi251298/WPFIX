@@ -4,7 +4,7 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 
 // Ganti ini dengan URL domain production Anda
-const SITEMAP_BASE_URL = 'https://www.crevalen.xyz';
+const SITEMAP_BASE_URL = 'https://www.techwire.biz';
 
 // Query GraphQL untuk mengambil semua URL yang dibutuhkan
 const GET_ALL_URLS_QUERY = gql`
