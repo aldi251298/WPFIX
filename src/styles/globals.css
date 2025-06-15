@@ -1,0 +1,65 @@
+/* Nama File: styles/globals.css */
+/* Status: Final dengan Ukuran Font Heading Kustom */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+:root {
+   --max-width-container: 1040px;
+  --padding-container: 1rem;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+}
+
+/* Menggunakan @layer base adalah praktik terbaik untuk mendefinisikan gaya dasar elemen */
+@layer base {
+  body {
+    /* Mengatur Roboto sebagai font default untuk semua teks/artikel */
+    font-family: var(--font-roboto), sans-serif;
+    color: #374151;
+  }
+
+  /* [PERUBAHAN DI SINI] */
+  /* Mengganti aturan H1-H6 lama dengan aturan individual */
+  /* untuk menerapkan ukuran font kustom dari tailwind.config.js */
+  h1 {
+    @apply font-sans text-heading-1;
+  }
+  h2 {
+    @apply mb-5 font-sans text-heading-2;
+  }
+  h3 {
+    @apply mb-4 font-sans text-heading-2;
+  }
+  h4 {
+     @apply mb-3 font-sans text-heading-2;
+  }
+  /* h5 dan h6 tetap menggunakan font Public Sans tapi dengan ukuran default Tailwind */
+  h5, h6 {
+    @apply font-sans;
+    color: #111827;
+  }
+
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --padding-container: 1rem;
+  }
+}

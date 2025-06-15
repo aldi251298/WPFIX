@@ -1,0 +1,181 @@
+/* Nama File: src/components/Header/Header.module.css */
+/* Kode Lengkap dan Final - Perombakan Header Mobile */
+
+/* Header utama, sekarang dengan garis bawah berwarna */
+.header {
+  width: 100%;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+  position: sticky;
+  top: 0;
+  z-index: 50; /* z-index lebih rendah dari panel */
+}
+
+/* Garis bawah berwarna-warni yang elegan */
+.header::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; /* Tepat di atas border-bottom */
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #4f46e5, #ec4899, #f59e0b, #10b981);
+}
+
+.headerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: var(--max-width-container);
+  margin: 0 auto;
+  padding: 0.75rem var(--padding-container);
+}
+
+/* === TAMPILAN DESKTOP (Default) === */
+.desktopHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.logoImage {
+  max-height: 35px;
+  width: auto;
+  display: block;
+}
+
+.searchForm input, .searchContainer input {
+  width: 250px;
+  padding: 0.6rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  background-color: #f5f5f5;
+}
+
+.searchForm input:focus, .searchContainer input:focus {
+  outline: none;
+  border-color: #333;
+  background-color: #fff;
+}
+
+/* === TAMPILAN MOBILE (Disembunyikan di desktop) === */
+.mobileHeader {
+  display: none;
+}
+
+/* === GAYA UNTUK MOBILE VIEW (di bawah 768px) === */
+@media (max-width: 768px) {
+  .desktopHeader {
+    display: none; /* Sembunyikan header desktop */
+  }
+
+  .mobileHeader {
+    display: flex; /* Tampilkan header mobile */
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .mobileNavIcon, .mobileSearchIcon {
+    flex: 1;
+  }
+  .mobileSearchIcon {
+    text-align: right;
+  }
+  .mobileLogo {
+    flex-shrink: 0;
+  }
+
+  .mobileNavIcon button, .mobileSearchIcon button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem; /* Ukuran ikon */
+    color: #374151;
+    padding: 0.5rem;
+  }
+}
+
+/* === STYLING UNTUK PANEL SLIDE-IN === */
+.slideInPanel {
+  position: fixed;
+  top: 0;
+  height: 100%;
+  width: 300px; /* Lebar panel */
+  max-width: 90%;
+  background-color: #ffffff;
+  box-shadow: 0 0 0px rgba(155, 155, 155, 0.2);
+  z-index: 1000;
+  transition: transform 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+}
+
+.leftPanel {
+  left: 0;
+  transform: translateX(-100%);
+}
+
+.rightPanel {
+  right: 0;
+  transform: translateX(100%);
+}
+
+.isOpen {
+  transform: translateX(0);
+}
+
+.panelHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.panelHeader h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.panelHeader button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #6b7280;
+}
+
+.panelContent {
+  padding: 1.5rem;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+.panelContent .searchForm {
+  margin-top: 1rem;
+}
+
+.panelContent .searchForm input {
+  width: 100%;
+}
+
+/* Backdrop untuk menggelapkan background */
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}

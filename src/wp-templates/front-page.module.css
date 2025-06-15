@@ -1,0 +1,144 @@
+/* Nama File: src/wp-templates/front-page.module.css */
+/* Kode Lengkap dan Final - Perbaikan Grid Section Horizontal */
+
+.container {
+  max-width: 1040px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.sectionTitle {
+  font-family: var(--font-poppins);
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  color: #111827;
+  border-bottom: 3px solid #111827;
+  padding-bottom: 0.5rem;
+  display: inline-block;
+}
+
+/* === BAGIAN 1: MEGA HERO (Tidak Berubah) === */
+.megaHero { display: grid; grid-template-columns: 1.3fr 1fr; gap: 1.5rem; margin-bottom: 3rem; }
+.megaHeroMain { display: flex; flex-direction: column; }
+.heroImageLink { display: block; overflow: hidden; border-radius: 8px; margin-bottom: 1rem; aspect-ratio: 16 / 9; }
+.heroImageLink img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
+.heroImageLink:hover img { transform: scale(1.05); }
+.heroMainContent { display: flex; flex-direction: column; }
+.heroMainCategory { font-size: 0.8rem; font-weight: 700; color: #1d4ed8; text-transform: uppercase; margin-bottom: 0.5rem; text-decoration: none; }
+.heroMainCategory:hover { text-decoration: underline; }
+.heroMainTitle { font-size: 2rem; font-weight: 800; line-height: 1.2; margin: 0 0 0.5rem 0; }
+.heroMainTitle a { text-decoration: none; color: inherit; }
+.heroMainTitle a:hover { color: #1d4ed8; }
+.heroExcerpt { font-size: 0.95rem; line-height: 1.6; color: #4b5563; }
+.megaHeroSide { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.megaHeroSideCard { display: flex; flex-direction: column; text-decoration: none; color: inherit; }
+.megaHeroSideCard img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 0; margin-bottom: 0.75rem; }
+.sideCardContent { display: flex; flex-direction: column; }
+.sideCardMeta { display: flex; align-items: center; gap: 0.5rem; font-size: 0.7rem; font-weight: 600; color: #6b7280; margin-bottom: 0.25rem; text-transform: uppercase; }
+.sideCardCategory { text-decoration: none; color: #1d4ed8; font-weight: 700; }
+.sideCardCategory:hover { text-decoration: underline; }
+.metaSeparator { color: #d1d5db; }
+.megaHeroSideCard h3 { font-size: 0.9rem; line-height: 1.4; font-weight: 700; margin: 0; }
+.megaHeroSideCard h3 a { text-decoration: none; color: inherit; }
+.megaHeroSideCard:hover h3 a { color: #1d4ed8; }
+
+
+/* === BAGIAN 2: GRID SECTION (PEROMBAKAN TOTAL) === */
+.gridSection {
+  margin-bottom: 3rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.postsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem 1.5rem; /* Jarak baris lebih besar dari jarak kolom */
+}
+
+/* Kartu diubah menjadi layout flexbox horizontal */
+.gridCard {
+  display: flex;
+  align-items: flex-start; /* Konten rata atas */
+  gap: 1rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.gridCardImage {
+  width: 90px;
+  height: 90px;
+  aspect-ratio: 1 / 1; /* Kotak sempurna */
+  object-fit: cover;
+  border-radius: 0; /* Sudut tajam */
+  flex-shrink: 0; /* Mencegah gambar menyusut */
+}
+
+.gridCardContent {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0; /* Mencegah teks meluber */
+}
+
+/* Menggunakan kembali style metadata dari hero side */
+.gridCardMeta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #6b7280;
+  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+}
+
+.gridCardCategory {
+  text-decoration: none;
+  color: #1d4ed8;
+  font-weight: 700;
+}
+.gridCardCategory:hover { text-decoration: underline; }
+
+/* Judul untuk kartu grid dikecilkan */
+.gridCard h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 0;
+}
+.gridCard:hover h3 {
+  color: #1d4ed8;
+}
+
+/* === BAGIAN 3 & 4 (Sisa CSS tidak ada perubahan signifikan) === */
+.miniHero { grid-template-columns: 1fr 1.5fr; }
+.miniHero .megaHeroMain h2 { font-size: 1.5rem; }
+.miniHero .megaHeroSide h3 { font-size: 0.9rem; }
+.listSidebarLayout { display: grid; grid-template-columns: 2fr 1fr; gap: 3rem; margin-top: 3rem; align-items: flex-start; }
+.sidebarColumn { position: sticky; top: 100px; }
+.postList { display: flex; flex-direction: column; border-top: 1px solid #e5e7eb; }
+.listItem { display: flex; align-items: flex-start; gap: 1rem; text-decoration: none; color: inherit; padding: 1.5rem 0; border-bottom: 1px solid #e5e7eb; }
+.listItem:hover h3 { color: #1d4ed8; }
+.listItemImage { width: 120px; height: 80px; object-fit: cover; border-radius: 4px; flex-shrink: 0; }
+.listItemContent { flex-grow: 1; }
+.listItemContent h3 { font-size: 1.1rem; font-weight: 700; line-height: 1.4; margin: 0 0 0.25rem 0; }
+.listItemContent p { font-size: 0.8rem; color: #6b7280; margin: 0; }
+.loadMoreButton { display: block; width: 100%; text-align: center; margin-top: 2rem; padding: 0.8rem 1.5rem; background-color: #f3f4f6; color: #374151; border: 1px solid #d1d5db; border-radius: 999px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: background-color 0.2s, color 0.2s; }
+.loadMoreButton:hover:not(:disabled) { background-color: #1f2937; color: #ffffff; border-color: #1f2937; }
+.loadMoreButton:disabled { background-color: #e5e7eb; color: #9ca3af; cursor: not-allowed; border-color: #e5e7eb; }
+
+/* === RESPONSIVE === */
+@media (max-width: 992px) {
+  .megaHero, .miniHero, .listSidebarLayout { grid-template-columns: 1fr; }
+  .postsGrid { grid-template-columns: repeat(2, 1fr); }
+  .sidebarColumn { position: static; margin-top: 3rem; }
+}
+@media (max-width: 768px) {
+  .megaHeroSide { grid-template-columns: repeat(2, 1fr); }
+  .postsGrid { grid-template-columns: 1fr; } 
+}
+@media (max-width: 576px) {
+  .megaHeroSide { grid-template-columns: 1fr; }
+}

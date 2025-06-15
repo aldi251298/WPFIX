@@ -1,0 +1,28 @@
+/* src/components/AdSense/AdPlaceholder.module.css */
+
+.placeholderContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  min-height: 90px; /* Tinggi minimal agar tidak terlalu kecil */
+  background-color: #e9ecef; /* Warna abu-abu */
+  border: 1px dashed #ced4da; /* Border putus-putus */
+}
+
+.adLabelBox {
+  display: inline-block;
+  background-color: white;
+  border: 1.5px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px; /* Sudut yang agak melengkung */
+  padding: 8px 16px;
+}
+
+.adLabelText {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #495057; /* Warna hitam keabuan, bukan hitam pekat */
+  letter-spacing: 0.05em;
+}

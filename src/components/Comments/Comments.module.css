@@ -1,0 +1,168 @@
+/* src/components/Comments/Comments.module.css (Versi Modern & Ringkas) */
+
+.commentsSection {
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.sectionTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: #111827;
+}
+
+/* === Daftar Komentar === */
+.commentList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.comment {
+  display: flex;
+  gap: 1rem;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-top: 0.25rem;
+  flex-shrink: 0; /* Pastikan avatar tidak mengecil */
+}
+
+.commentBody {
+  flex: 1;
+}
+
+.commentHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.25rem;
+  flex-wrap: wrap; /* Biarkan header wrap jika terlalu panjang */
+}
+
+.authorName {
+  font-weight: 600;
+  color: #111827;
+  word-break: break-word; /* Tambahkan ini */
+}
+
+.commentDate {
+  font-size: 0.8rem;
+  color: #9ca3af;
+  flex-shrink: 0; /* Jangan biarkan tanggal menyempit */
+}
+
+.commentContent {
+  color: #4b5563;
+  line-height: 1.7;
+  word-break: break-word; /* Tambahkan ini */
+}
+
+.commentContent p:last-child {
+  margin-bottom: 0;
+}
+
+
+/* === Form Komentar (Versi Baru: Kecil dan Modern) === */
+
+.commentForm {
+  margin-top: 4rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.formTitle {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+.formSubtitle,
+.formGroup label {
+  display: none;
+}
+
+.formGroup {
+  margin-bottom: 1rem;
+}
+
+/* Ini adalah style kunci untuk input field yang baru */
+.formGroup textarea,
+.formGroup input {
+  width: 100%;
+  padding: 0.65rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  background-color: #f9fafb;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.formGroup textarea:focus,
+.formGroup input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.userInfo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.submitButton {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  padding: 0.7rem 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.submitButton:hover:not(:disabled) {
+  background-color: #1d4ed8;
+}
+
+.submitButton:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* Gaya untuk pesan status tidak berubah */
+.errorMessage, .successMessage {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-weight: 500;
+}
+.errorMessage {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+.successMessage {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+@media (max-width: 640px) {
+  .userInfo {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .commentHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+}

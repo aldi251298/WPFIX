@@ -1,0 +1,129 @@
+/* src/components/Footer/Footer.module.css */
+
+.footer {
+  background-color: #1a1a1a;
+  color: #a0a0a0;
+  padding: 4rem 0 0;
+  font-size: 0.9rem;
+}
+
+.footerContent {
+  max-width: var(--max-width-container);
+  padding-left: var(--padding-container);
+  padding-right: var(--padding-container);
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2rem;
+  padding-bottom: 3rem;
+}
+
+.footerColumn {
+  flex: 1;
+  min-width: 200px;
+}
+
+.footerLogo {
+  max-height: 40px;
+  margin-bottom: 1.5rem;
+}
+
+.footerColumn p {
+  line-height: 1.7;
+  padding-right: 1rem;
+}
+
+.columnTitle {
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.footerLinks {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footerLinks li {
+  margin-bottom: 0.8rem;
+}
+
+.footerLinks a {
+  color: #a0a0a0;
+  transition: color 0.2s ease-in-out;
+}
+
+.footerLinks a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.socialLinks {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.socialLinks a {
+  color: #a0a0a0;
+  font-size: 1.4rem;
+  transition: color 0.2s ease-in-out;
+}
+
+.socialLinks a:hover {
+  color: #ffffff;
+}
+
+.footerBottom {
+  border-top: 1px solid #333;
+  text-align: center;
+  padding: 1.5rem 0;
+  color: #777;
+  font-size: 0.85rem;
+}
+/* === RESPONSIVE UNTUK FOOTER === */
+
+@media (max-width: 768px) {
+  .footerContent {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footerColumn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: unset; /* Reset min-width agar bisa mengecil penuh */
+    width: 100%; /* Ambil lebar penuh */
+  }
+
+  .footerColumn p {
+    padding-right: 0;
+    max-width: 90%; /* Batasi lebar paragraf agar tidak terlalu panjang di mobile */
+  }
+  .columnTitle {
+    font-size: 1rem; /* Kecilkan judul kolom */
+    margin-bottom: 1rem;
+  }
+  .footerLinks li {
+    font-size: 0.9rem; /* Kecilkan font link */
+  }
+}
+
+@media (max-width: 480px) {
+  .footer {
+    padding: 2rem 0 0; /* Kurangi padding utama footer */
+  }
+  .footerContent {
+    gap: 1.5rem; /* Kurangi gap antar kolom */
+    padding-bottom: 2rem;
+  }
+  .footerLogo {
+    max-height: 35px; /* Kecilkan logo */
+  }
+}
