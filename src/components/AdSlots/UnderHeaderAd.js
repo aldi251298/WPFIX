@@ -14,7 +14,7 @@ const UnderHeaderAd = () => {
     // - lg:h-[300px]: Di layar besar, tinggi menjadi 300px.
     <div className="mx-auto my-5 w-full lg:w-[1040px] h-auto lg:h-[300px]">
       <AdSense
-        slotId="6666666666" // <-- GANTI DENGAN SLOT ID ANDA UNTUK IKLAN INI
+        slotId="3259893788" // <-- GANTI DENGAN SLOT ID ANDA UNTUK IKLAN INI
         format="auto" // Format 'auto' akan membuat iklan mengikuti ukuran kontainer
       />
     </div>

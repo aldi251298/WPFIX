@@ -29,9 +29,9 @@ const FloatingFooterAd = () => {
         - lg:h-[150px]: Tinggi 150px di layar besar
         - mx-auto: Menengahkan kontainer ini di dalam bar yang full-width
       */}
-      <div className="w-full h-auto lg:w-[1040px] lg:h-[150px] mx-auto">
+      <div className="w-full h-auto lg:w-[1040px] lg:h-[100px] mx-auto">
         <AdSense
-          slotId="4444444444" // <-- GANTI DENGAN SLOT ID ANDA UNTUK IKLAN INI
+          slotId="3802350886" // <-- GANTI DENGAN SLOT ID ANDA UNTUK IKLAN INI
           format="auto"
         />
       </div>
