@@ -1,8 +1,7 @@
-// src/components/Sidebar/Sidebar.js
+// src/components/Sidebar/Sidebar.js - Menangani variabel error
 
 import { gql, useQuery } from '@apollo/client';
 import Link from 'next/link';
-// import { useRouter } from 'next/router'; // [PERBAIKAN] Hapus impor yang tidak digunakan
 import styles from './Sidebar.module.css';
 import SidebarAd from '../AdSlots/SidebarAd';
 
@@ -23,25 +22,27 @@ const GET_POPULAR_POSTS = gql`
 
 export default function Sidebar() {
   const { data, loading, error } = useQuery(GET_POPULAR_POSTS);
-  // const router = useRouter(); // [PERBAIKAN] Hapus variabel yang tidak digunakan
   
+  // [PERBAIKAN] Menambahkan blok ini untuk menggunakan variabel 'error'
   if (error) {
     console.error("Error fetching popular posts for sidebar:", error);
-    return null;
+    return null; 
   }
   
   const allPosts = data?.posts?.nodes ?? [];
 
   const sortedPopularPosts = [...allPosts]
+    .filter(post => post.viewCount?.viewCount > 0)
     .sort((a, b) => (b.viewCount?.viewCount || 0) - (a.viewCount?.viewCount || 0))
     .slice(0, 6);
 
   return (
-    <aside className={styles.sidebar}>
-      <div className={styles.widget}>
+    <>
+      {/* Widget Trending Posts */}
+      <div className={styles.trendingWidget}>
         <h3 className={styles.widgetTitle}>Trending</h3>
         {loading ? (
-          <p>Loading...</p>
+          <p style={{ textAlign: 'center' }}>Loading...</p>
         ) : (
           <ol className={styles.popularPostsList}>
             {sortedPopularPosts.map((post, index) => (
@@ -57,13 +58,12 @@ export default function Sidebar() {
           </ol>
         )}
       </div>
-    {/* [PERUBAHAN] 2. Tambahkan widget iklan di sini */}
-      <div className={styles.widget} style={{ background: '#f9fafb' }}>
-        <h3 className={styles.widgetTitle} style={{ color: '#111827', borderColor: '#e5e7eb' }}>
-          
-        </h3>
+
+      {/* Widget Iklan */}
+      <div className={`${styles.adWidget} ${styles.stickyAdWidget}`}>
+        <h3 className={styles.adWidgetTitle}>Advertisement</h3>
         <SidebarAd />
       </div>
-    </aside>
+    </>
   );
 }

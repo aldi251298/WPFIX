@@ -1,10 +1,9 @@
-// src/pages/category/[slug].js - SEO Dioptimalkan
+// src/pages/category/[slug].js - Dengan impor yang sudah dibersihkan
 
-import { gql, useQuery, ApolloClient, InMemoryCache } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client';
 import { useRouter } from 'next/router';
-import Head from 'next/head';
 import Link from 'next/link';
-import SEO from '../../components/SEO'; // Impor komponen SEO
+import SEO from '../../components/SEO'; // Komponen SEO digunakan sebagai pengganti Head
 import styles from './category.module.css';
 import { useState } from 'react';
 
@@ -12,7 +11,7 @@ const CATEGORY_POSTS_QUERY = gql`
   query CategoryPosts($slug: ID!, $after: String) {
     category(id: $slug, idType: SLUG) {
       name
-      seo { # <-- Mengambil data SEO untuk kategori
+      seo {
         title
         metaDesc
         canonical
@@ -37,10 +36,6 @@ const CATEGORY_POSTS_QUERY = gql`
     }
   }
 `;
-
-// Fungsi ini tidak lagi diperlukan jika menggunakan useQuery
-// export async function getStaticPaths...
-// export async function getStaticProps...
 
 export default function CategoryPage() {
   const router = useRouter();
@@ -78,7 +73,6 @@ export default function CategoryPage() {
 
   return (
     <>
-      {/* Menggunakan komponen SEO */}
       <SEO seo={categorySeo} />
       
       <main className={styles.container}>
