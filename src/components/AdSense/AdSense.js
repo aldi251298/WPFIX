@@ -1,45 +1,45 @@
-// src/components/AdSense/AdSense.js - Versi Universal
-
+// src/components/AdSense/AdSense.js
 import { useEffect } from 'react';
-import AdPlaceholder from './AdPlaceholder';
-import styles from './AdSense.module.css'; // Impor file CSS yang baru dibuat
 
-const AdSense = ({ slotId, format = 'auto', layoutKey = '', style = { display: 'block' }, ...props }) => {
-  const isAdsEnabled = process.env.NEXT_PUBLIC_ADSENSE_ENABLED === 'true';
+// Komponen utama iklan AdSense
+const AdSense = ({
+  slotId,
+  format = 'auto',
+  layoutKey = '',
+  style = {},
+  className = '',
+}) => {
+  const isAdsEnabled = process.env.NEXT_PUBLIC_ADSENSE_ENABLED !== 'false';
 
   useEffect(() => {
-    // Hanya coba muat iklan jika ads diaktifkan
-    if (isAdsEnabled) {
+    if (typeof window !== 'undefined' && isAdsEnabled) {
       try {
         (window.adsbygoogle = window.adsbygoogle || []).push({});
       } catch (err) {
         console.error('AdSense Script Error:', err);
       }
     }
-  }, [isAdsEnabled, slotId]); // Tambahkan slotId sebagai dependency
+  }, [isAdsEnabled, slotId]);
 
-  // Jika Adsense dimatikan total via environment variable, tampilkan placeholder saja.
-  if (!isAdsEnabled) {
-    return <AdPlaceholder />;
-  }
+  if (!isAdsEnabled) return null;
 
-  // Jika Adsense aktif, render wrapper yang berisi slot iklan dan placeholder.
-  // CSS akan secara otomatis mengatur mana yang akan ditampilkan.
   return (
-    <div className={styles.adWrapper} {...props}>
-      <ins
-        className="adsbygoogle"
-        style={style}
-        data-ad-client="ca-pub-4083225081523366" // Publisher ID dari _app.js
-        data-ad-slot={slotId}
-        data-ad-format={format}
-        data-full-width-responsive="true"
-        {...(layoutKey && { 'data-ad-layout-key': layoutKey })}
-      ></ins>
-      <div className={styles.placeholder}>
-        <AdPlaceholder />
-      </div>
-    </div>
+    <ins
+      className={`adsbygoogle ${className}`}
+      style={{
+        display: 'block',
+        width: '100%',
+        minWidth: '250px',
+        height: 'auto',
+        textAlign: 'center',
+        ...style,
+      }}
+      data-ad-client="ca-pub-4083225081523366" // Ganti dengan kode kamu jika berbeda
+      data-ad-slot={slotId}
+      data-ad-format={format}
+      data-full-width-responsive="true"
+      {...(layoutKey && { 'data-ad-layout-key': layoutKey })}
+    ></ins>
   );
 };
 

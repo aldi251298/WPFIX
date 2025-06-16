@@ -22,9 +22,11 @@ export default function App({ Component, pageProps }) {
         {process.env.NEXT_PUBLIC_ADSENSE_ENABLED === 'true' && (
         <Script
           id="adsense-script"
+		  async
           strategy="afterInteractive"
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4083225081523366"
-          crossOrigin="anonymous"
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+          data-ad-client="ca-pub-4083225081523366" 
+		  crossOrigin="anonymous"
         />
 		)}
 			  <Header />
