@@ -1,24 +1,27 @@
 // src/components/AdSlots/UnderHeaderAd.js
 
-import AdSense from '../AdSense/AdSense';
+import AdSense from '@/components/AdSense/AdSense';
 
-const UnderHeaderAd = () => {
+export default function UnderHeaderAd() {
+  const isAdsEnabled = process.env.NEXT_PUBLIC_ADSENSE_ENABLED === 'true';
+
+  if (!isAdsEnabled) {
+    return null;
+  }
+
   return (
-    // Kontainer pembungkus ini yang akan kita buat responsif.
-    // Penjelasan kelas Tailwind:
-    // - mx-auto: Menengahkan kontainer di layar besar.
-    // - my-5: Memberi jarak atas dan bawah.
-    // - w-full: (Default/Mobile) Lebar kontainer adalah 100%.
-    // - lg:w-[1040px]: Di layar besar (large, 1024px+), lebar menjadi 1040px.
-    // - h-auto: (Default/Mobile) Tinggi otomatis mengikuti iklan responsif.
-    // - lg:h-[300px]: Di layar besar, tinggi menjadi 300px.
+    // Kontainer responsif:
+    // - mx-auto: center di viewport besar
+    // - my-5: margin vertikal
+    // - w-full: full-width di mobile
+    // - lg:w-[1040px]: fixed width 1040px di layar ≥1024px
+    // - min-h-[90px]: minimal tinggi 90px
+    // - lg:h-[300px]: tinggi 300px di layar ≥1024px
     <div className="mx-auto my-5 w-full min-h-[90px] lg:w-[1040px] lg:h-[300px]">
       <AdSense
-        slotId="3259893788" // <-- GANTI DENGAN SLOT ID ANDA UNTUK IKLAN INI
-        format="auto" // Format 'auto' akan membuat iklan mengikuti ukuran kontainer
+        slotId="3259893788"  // GANTI dengan slot ID Anda
+        format="auto"        // ‘auto’ mengikuti ukuran kontainer
       />
     </div>
   );
-};
-
-export default UnderHeaderAd;
+}

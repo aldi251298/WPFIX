@@ -1,42 +1,35 @@
-// src/components/AdSlots/FloatingFooterAd.js (Versi Final Responsif)
+// src/components/AdSlots/FloatingFooterAd.js
 
 import { useState } from 'react';
-import AdSense from '../AdSense/AdSense';
+import AdSense from '@/components/AdSense/AdSense';
 import styles from './FloatingFooterAd.module.css';
 
-const FloatingFooterAd = () => {
+export default function FloatingFooterAd() {
   const [isOpen, setIsOpen] = useState(true);
+  const isAdsEnabled = process.env.NEXT_PUBLIC_ADSENSE_ENABLED === 'true';
 
   const handleClose = () => {
     setIsOpen(false);
   };
 
-  if (!isOpen) {
+  if (!isOpen || !isAdsEnabled) {
     return null;
   }
 
   return (
-    // Kontainer luar ini hanya bertugas untuk mengambang di bawah
+    // Kontainer luar untuk floating footer
     <div className={styles.floatingContainer}>
       <button onClick={handleClose} className={styles.closeButton}>
         &times;
       </button>
 
-      {/* Kontainer dalam ini yang ukurannya kita atur secara responsif */}
-      {/* - w-full: Lebar 100% di mobile
-        - lg:w-[1040px]: Lebar 1040px di layar besar (desktop)
-        - h-auto: Tinggi otomatis di mobile
-        - lg:h-[150px]: Tinggi 150px di layar besar
-        - mx-auto: Menengahkan kontainer ini di dalam bar yang full-width
-      */}
-       <div className="w-full min-h-[60px] lg:w-[1040px] lg:h-[90px] mx-auto">
+      {/* Kontainer dalam responsive */}
+      <div className="w-full min-h-[60px] lg:w-[1040px] lg:h-[90px] mx-auto">
         <AdSense
-          slotId="3802350886" // <-- GANTI DENGAN SLOT ID ANDA UNTUK IKLAN INI
+          slotId="3802350886" // GANTI dengan slot ID Anda untuk unit ini
           format="auto"
         />
       </div>
     </div>
   );
-};
-
-export default FloatingFooterAd;
+}

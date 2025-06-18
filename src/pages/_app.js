@@ -1,40 +1,47 @@
-// src/pages/_app.js - Dikembalikan ke Versi Awal
-
+// src/pages/_app.js
 import '../styles/globals.css';
-import "@config";
-import { useRouter } from "next/router";
-import { FaustProvider } from "@faustwp/core";
+import '@config';
+import { useRouter } from 'next/router';
+import { FaustProvider } from '@faustwp/core';
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 import Script from 'next/script';
+import UnderHeaderAd from '@/components/AdSlots/UnderHeaderAd';
 import FloatingFooterAd from '@/components/AdSlots/FloatingFooterAd';
-import UnderHeaderAd from '@/components/AdSlots/UnderHeaderAd'; 
 import { roboto, public_sans } from '../lib/fonts';
 
 export default function App({ Component, pageProps }) {
-	const router = useRouter();
- 
-	return (
-		<FaustProvider pageProps={pageProps}>
-			<div className={`${roboto.variable} ${public_sans.variable}`}>
-			  
-			   {/* Iklan hanya akan dimuat jika variabel bernilai 'true' */}
-        {process.env.NEXT_PUBLIC_ADSENSE_ENABLED === 'true' && (
-        <Script
-          id="adsense-script"
-		  async
-          strategy="afterInteractive"
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-          data-ad-client="ca-pub-4083225081523366" 
-		  crossOrigin="anonymous"
-        />
-		)}
-			  <Header />
-        <UnderHeaderAd />
-			  <Component {...pageProps} key={router.asPath} />
-		    <Footer />
-			<FloatingFooterAd />
+  const router = useRouter();
+  const isAdsEnabled = process.env.NEXT_PUBLIC_ADSENSE_ENABLED === 'true';
+  const adsClient = process.env.NEXT_PUBLIC_ADSENSE_CLIENT; // e.g. "ca-pub-4083225081523366"
+
+  return (
+    <FaustProvider pageProps={pageProps}>
+      <div className={`${roboto.variable} ${public_sans.variable}`}>        
+        {/* Muat sekali skrip AdSense di client */}
+        {isAdsEnabled && (
+          <Script
+            id="adsense-script"
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsClient}`}
+            strategy="afterInteractive"
+            async
+            crossOrigin="anonymous"
+          />
+        )}
+
+        <Header />
+
+        {/* Slot iklan Under Header */}
+        {isAdsEnabled && <UnderHeaderAd />}
+
+        {/* Konten Halaman */}
+        <Component {...pageProps} key={router.asPath} />
+
+        <Footer />
+
+        {/* Slot iklan Floating Footer */}
+        {isAdsEnabled && <FloatingFooterAd />}
       </div>
-		</FaustProvider>
-	);
+    </FaustProvider>
+  );
 }

@@ -1,30 +1,16 @@
-// src/components/AdSense/AdSense.js
-import { useEffect } from 'react';
+import React from 'react';
+import dynamic from 'next/dynamic';
+import Script from 'next/script';
 
-const AdSense = ({
-  slotId,
-  format = 'auto',
-  layoutKey = '',
-  style = {},
-  className = '',
-}) => {
-  const isAdsEnabled = process.env.NEXT_PUBLIC_ADSENSE_ENABLED !== 'false';
-
-  useEffect(() => {
-    if (typeof window !== 'undefined' && isAdsEnabled) {
-      try {
-        // Push iklan AdSense setelah script tersedia
-        (window.adsbygoogle = window.adsbygoogle || []).push({});
-      } catch (err) {
-        console.error('AdSense Script Error:', err);
-      }
-    }
-  }, [isAdsEnabled, slotId]);
-
-  if (!isAdsEnabled || typeof window === 'undefined') return null;
+// Hanya render di client
+const RawAdSense = ({ slotId, format = 'auto', layoutKey = '', style = {}, className = '' }) => {
+  if (typeof window === 'undefined' || process.env.NEXT_PUBLIC_ADSENSE_ENABLED === 'false') {
+    return null;
+  }
 
   return (
     <>
+      {/* Container iklan */}
       <ins
         className={`adsbygoogle ${className}`}
         style={{
@@ -35,14 +21,22 @@ const AdSense = ({
           textAlign: 'center',
           ...style,
         }}
-        data-ad-client="ca-pub-4083225081523366"
+        data-ad-client={process.env.NEXT_PUBLIC_ADSENSE_CLIENT}
         data-ad-slot={slotId}
         data-ad-format={format}
         data-full-width-responsive="true"
         {...(layoutKey && { 'data-ad-layout-key': layoutKey })}
-      ></ins>
+      />
+
+      {/* Push iklan setelah <ins> */}
+      <Script id={`adsense-init-${slotId}`} strategy="afterInteractive">
+        {`(adsbygoogle = window.adsbygoogle || []).push({});`}
+      </Script>
     </>
   );
 };
 
-export default AdSense;
+export default dynamic(
+  () => Promise.resolve(RawAdSense),
+  { ssr: false }
+);
