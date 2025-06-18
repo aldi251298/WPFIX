@@ -19,8 +19,8 @@ export default function UnderHeaderAd() {
     // - lg:h-[300px]: tinggi 300px di layar ≥1024px
     <div className="mx-auto my-5 w-full min-h-[90px] lg:w-[1040px] lg:h-[300px]">
       <AdSense
-        slotId="3259893788"  // GANTI dengan slot ID Anda
-        format="auto"        // ‘auto’ mengikuti ukuran kontainer
+       slotId="6358683810"   // ← ganti dengan kode tes ini
+ 	format="auto"
       />
     </div>
   );
