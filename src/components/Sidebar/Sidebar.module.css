@@ -1,49 +1,56 @@
-
 /* Nama File: src/components/Sidebar/Sidebar.module.css */
-/* Kode Lengkap dan Final - Penambahan z-index */
+/* Kode Lengkap dan Final - Penyesuaian Gaya Widget Trending Posts */
 
 .sidebar {
   width: 100%;
 }
   
-.widget {
-  background-color: #240f5e;
-  border: 1px solid #e5e7eb;
+/* [PERUBAHAN] Menerapkan styling box biru tua langsung ke trendingWidget */
+.trendingWidget {
+  background-color: #003366; /* Dark Blue as requested */
+  border: 1px solid #004080; /* Slightly lighter border for contrast */
   border-radius: 8px;
   padding: 1.5rem;
   margin-bottom: 2rem;
+  color: #ffffff; /* Semua teks di dalam widget ini putih */
 }
 
 .widgetTitle {
   font-family: var(--font-public-sans, sans-serif);
-  font-size: 1.2rem; /* Ukuran font sedikit diperbesar */
+  font-size: 1.2rem;
   font-weight: 800;
-  margin: 0 0 2rem 0; /* Margin bawah diperbesar */
+  margin: 0 0 2rem 0;
   padding-bottom: 0;
-  border-bottom: none; /* [PERUBAHAN] Menghapus garis bawah */
-  color: #ffffff;
+  border-bottom: none;
+  color: #ffffff; /* Pastikan judul tetap putih */
   text-transform: uppercase;
   letter-spacing: 1.5px;
-  /* [PERUBAHAN] Membuat judul berada di tengah */
   text-align: center;
 }
 
 /* === PERBAIKAN FINAL DI SINI === */
-.stickyWidget {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 100px; /* Jarak dari atas viewport */
-  z-index: 10; /* Memberi tahu browser cara me-layer elemen ini. Nilainya lebih rendah dari header (100) */
-}
-.stickyAdWidget {
+/* Tidak perlu .stickyWidget lagi karena .sidebarColumn sudah punya position: sticky */
+/* .stickyWidget {
   position: -webkit-sticky;
   position: sticky;
   top: 100px;
   z-index: 10;
+} */
+.stickyAdWidget { /* Ad widget can remain sticky and inherit general widget styling */
+  position: -webkit-sticky;
+  position: sticky;
+  top: 100px;
+  z-index: 10;
+  /* background-color: #240f5e; */ /* Retain original color for ad widget if desired, or make it similar dark blue */
+                               /* Keeping original color for distinction from trending widget */
+  /* border: 1px solid #e5e7eb; */
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 2rem; /* Ensure consistent margin below it */
 }
 /* =============================== */
 
-/* Styling untuk daftar postingan populer */
+/* Styling untuk daftar postingan populer (sekarang Trending Posts) */
 .popularPostsList {
   list-style: none;
   padding: 0;
@@ -58,7 +65,8 @@
   align-items: flex-start;
   gap: 1rem;
   padding-bottom: 1rem;
-  border-bottom: 1px solid #e5e7eb;
+  /* [PERUBAHAN] Garis pemisah putih samar */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2); 
 }
 
 .popularPostsList li:last-child {
@@ -66,12 +74,11 @@
   padding-bottom: 0;
 }
 
-
 .postNumber {
-  font-family: var(--font-poppins);
+  font-family: var(--font-poppins); /* Assuming Poppins is preferred for numbers */
   font-size: 1.5rem;
   font-weight: 700;
-  color: #d1d5db;
+  color: #ffffff; /* [PERUBAHAN] Warna putih bersih */
   line-height: 1.2;
   flex-shrink: 0;
 }
@@ -82,9 +89,9 @@
 }
 
 .postTitle {
-  font-family: var(--font-poppins);
+  font-family: var(--font-poppins); /* Assuming Poppins is preferred for titles */
   font-weight: 600;
-  color: #f6f8fa;
+  color: #ffffff; /* [PERUBAHAN] Warna putih bersih */
   text-decoration: none;
   line-height: 1.4;
   transition: color 0.2s;
@@ -92,9 +99,10 @@
 }
 
 .postTitle:hover {
-  color: #0d0e0f;
+  color: #BFDBFE; /* [PERUBAHAN] Warna biru muda saat hover untuk kontras */
 }
 
+/* AdContainer and Placeholder styles from previous task */
 .adContainer {
   width: 100%;
   min-height: 250px;
@@ -104,7 +112,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f3f4f6;
+  background-color: #f3f4f6; /* Placeholder background */
   background-image: repeating-linear-gradient(
     -45deg,
     #e5e7eb,
@@ -163,8 +171,10 @@
   border: none;
 }
 
+
 @media (max-width: 820px) {
-  .stickyWidget {
+  /* Di mobile, hapus sticky untuk sidebar, dan atur ulang margin */
+  .sidebarColumn {
     position: static;
     margin-top: 2rem;
     z-index: auto; /* Reset z-index di mobile */
@@ -172,16 +182,20 @@
 }
 
 @media (max-width: 480px) {
-  .widget {
+  /* Penyesuaian untuk layar sangat kecil */
+  .trendingWidget {
     padding: 1rem;
   }
   .widgetTitle {
     font-size: 1.1rem;
     margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
+  }
+  .popularPostsList li {
+    gap: 0.8rem;
+    padding-bottom: 0.8rem;
   }
   .postNumber {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
   }
   .postTitle {
     font-size: 0.9rem;

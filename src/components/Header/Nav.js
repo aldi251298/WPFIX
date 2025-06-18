@@ -18,15 +18,11 @@ const GET_MENU_BY_LOCATION = gql`
 
 export default function Nav() {
   const { data, loading, error } = useQuery(GET_MENU_BY_LOCATION, {
-    variables: { location: 'FOXIZ_MAIN' },
+    variables: { location: 'PRIMARY' },
   });
-  // Console logs ini bisa dihapus di production
-  // console.log('Menu Loading:', loading);
-  // console.log('Menu Error:', error);
-  // console.log('Menu Data:', data);
+
   if (loading) return <p>Loading menu...</p>;
   if (error) return <p>Error loading menu: {error.message}</p>;
-  
   
   const menuItems = data?.menuItems?.nodes;
 
@@ -37,11 +33,15 @@ export default function Nav() {
   return (
     <nav className={styles.primaryNav}>
       <ul>
-        {menuItems.map((item) => (
+        {menuItems.map((item, index) => (
           <li key={item.id}>
             <Link href={item.uri ?? '#'}>
               {item.label}
             </Link>
+            {/* [PERUBAHAN] Menambahkan pemisah "/" kecuali untuk item terakhir */}
+            {index < menuItems.length - 1 && (
+              <span className={styles.separator}>/</span>
+            )}
           </li>
         ))}
       </ul>

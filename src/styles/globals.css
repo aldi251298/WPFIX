@@ -1,5 +1,5 @@
 /* Nama File: styles/globals.css */
-/* Status: Final dengan Ukuran Font Heading Kustom */
+/* Status: Final dengan Ukuran Font Heading Kustom yang Diperbaiki dan Margins Konsisten */
 
 @tailwind base;
 @tailwind components;
@@ -31,23 +31,25 @@ body {
   }
 
   /* [PERUBAHAN DI SINI] */
-  /* Mengganti aturan H1-H6 lama dengan aturan individual */
-  /* untuk menerapkan ukuran font kustom dari tailwind.config.js */
+  /* Mengatur ulang ukuran font heading dan margin bawah agar lebih rapi dan hierarkis */
   h1 {
-    @apply font-sans text-heading-1;
+    @apply mb-6 font-sans text-heading-1;
   }
   h2 {
     @apply mb-5 font-sans text-heading-2;
   }
   h3 {
-    @apply mb-4 font-sans text-heading-2;
+    @apply mb-4 font-sans text-heading-3; /* Menggunakan ukuran heading-3 dari tailwind.config.js */
   }
   h4 {
-     @apply mb-3 font-sans text-heading-2;
+    @apply mb-3 font-sans text-heading-4; /* Menggunakan ukuran heading-4 dari tailwind.config.js */
   }
-  /* h5 dan h6 tetap menggunakan font Public Sans tapi dengan ukuran default Tailwind */
-  h5, h6 {
-    @apply font-sans;
+  h5 {
+    @apply mb-2 font-sans text-lg font-bold; /* Menggunakan ukuran Tailwind default text-lg (1.125rem) */
+    color: #111827;
+  }
+  h6 {
+    @apply mb-1 font-sans text-base font-bold; /* Menggunakan ukuran Tailwind default text-base (1rem) */
     color: #111827;
   }
 

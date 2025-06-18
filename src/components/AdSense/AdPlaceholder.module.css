@@ -6,23 +6,28 @@
   align-items: center;
   width: 100%;
   height: 100%;
-  min-height: 90px; /* Tinggi minimal agar tidak terlalu kecil */
-  background-color: #e9ecef; /* Warna abu-abu */
-  border: 1px dashed #ced4da; /* Border putus-putus */
+  min-height: 90px; /* Minimal height to ensure it's visible */
+  background-color: #e9ecef; /* Abu-abu */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
 
 .adLabelBox {
-  display: inline-block;
-  background-color: white;
-  border: 1.5px solid rgba(0, 0, 0, 0.1);
-  border-radius: 8px; /* Sudut yang agak melengkung */
-  padding: 8px 16px;
+  display: flex; /* Use flex to center the AD text */
+  justify-content: center;
+  align-items: center;
+  background-color: white; /* Putih bersih */
+  border: none; /* No border for the inner box */
+  border-radius: 4px; /* Slightly rounded corners for the inner box */
+  padding: 8px 16px; /* Padding around the AD text */
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* Subtle shadow for the white box */
+  white-space: nowrap; /* Prevent "AD" from wrapping */
 }
 
 .adLabelText {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 1rem;
   font-weight: 700;
-  color: #495057; /* Warna hitam keabuan, bukan hitam pekat */
+  color: #495057; /* Warna hitam keabuan */
   letter-spacing: 0.05em;
+  text-transform: uppercase;
 }

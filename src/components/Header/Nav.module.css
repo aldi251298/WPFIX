@@ -1,5 +1,5 @@
 /* Nama File: src/components/Header/Nav.module.css */
-/* Kode Lengkap dan Final - Penyesuaian Ukuran Font Menu */
+/* Kode Lengkap dan Final - Penyesuaian Lebar Menu Navigasi */
 
 /* Style Desktop */
 .primaryNav ul {
@@ -7,18 +7,40 @@
   padding: 0;
   list-style: none;
   display: flex;
-  gap: 1.5rem;
+  /* [PERBAIKAN] Mengatur gap antar item menu utama (antar li) */
+  gap: 1.5rem; /* Jarak antar item (li) */
+  align-items: center;
+  /* [PERBAIKAN] Pastikan ul tidak melipat ke baris baru */
+  flex-wrap: nowrap; 
+  /* [PERBAIKAN] Jika menu terlalu panjang, izinkan scroll horizontal */
+  overflow-x: auto; 
+  -webkit-overflow-scrolling: touch; /* Untuk scrolling halus di iOS */
+  /* [PERBAIKAN] Sembunyikan scrollbar default jika tidak dibutuhkan */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+}
+
+.primaryNav ul::-webkit-scrollbar { /* Chrome, Safari, Opera */
+  display: none;
+}
+
+
+.primaryNav li {
+  display: flex;
+  align-items: center;
+  /* [PERBAIKAN] Menambahkan gap di dalam li untuk memisahkan link dan separator */
+  gap: 0.5rem; /* Jarak antara link dan separator */
+  flex-shrink: 0; /* Mencegah item menu mengecil jika ruang terbatas */
 }
 
 .primaryNav a {
   color: #080808;
   text-decoration: none;
   font-weight: 500;
-  padding: 0.5rem 0;
+  padding: 0.75rem 0;
   position: relative;
   transition: color 0.2s ease-in-out;
   
-  /* [PERUBAHAN DI SINI] Menerapkan ukuran & font yang sudah didefinisikan */
   @apply font-sans text-nav-menu;
 }
 
@@ -30,13 +52,13 @@
   content: '';
   position: absolute;
   width: 100%;
-  height: 2px;
+  height: 3px;
   background-color: #0070f3;
   bottom: 0;
   left: 0;
   transform: scaleX(0);
   transform-origin: bottom right;
-  transition: transform 0.25s ease-out;
+  transition: transform 0.3s ease-out;
 }
 
 .primaryNav a:hover::after {
@@ -44,24 +66,48 @@
   transform-origin: bottom left;
 }
 
+/* Gaya untuk pemisah "/" */
+.separator {
+  color: #d1d5db;
+  /* [PERBAIKAN] Menghapus margin horizontal yang menyebabkan pelebaran kumulatif */
+  /* margin: 0 0.75rem; */ /* Baris ini dihapus */
+  font-size: 0.9rem;
+  user-select: none;
+  flex-shrink: 0; /* Pastikan separator tidak mengecil */
+}
+
 /* Penyesuaian Mobile */
 @media (max-width: 768px) {
-  /* Di dalam panel geser, menu akan vertikal */
   .primaryNav ul {
-    flex-direction: column; /* Mengubah menu menjadi vertikal */
+    flex-direction: column;
     gap: 0;
-  }
-  
-  .primaryNav a {
-    display: block; /* Membuat link memenuhi lebar */
-    padding: 1rem 0.5rem;
-    border-bottom: 1px solid #f3f4f6;
-    /* Ukuran font mobile tidak perlu diubah karena sudah di-handle oleh @apply,
-       kecuali jika Anda ingin ukuran yang berbeda di mobile. */
+    align-items: flex-start;
+    flex-wrap: wrap; 
+    overflow-x: hidden; /* Sembunyikan scroll horizontal di mobile */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
   }
 
-  /* Hapus efek garis bawah di mobile */
+  .primaryNav ul::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .primaryNav li {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 0; /* Hapus gap di mobile */
+  }
+
+  .primaryNav a {
+    display: block;
+    padding: 1rem 0.5rem;
+    border-bottom: 1px solid #f3f4f6;
+  }
+
   .primaryNav a::after {
+    display: none;
+  }
+  .separator {
     display: none;
   }
 }

@@ -1,0 +1,92 @@
+/* src/components/CookieConsent/CookieConsent.module.css */
+
+.overlay {
+  position: fixed;
+  bottom: 2rem; /* Above the footer, adjust as needed */
+  left: 50%;
+  transform: translateX(-50%); /* Center horizontally */
+  z-index: 1000; /* Ensure it's above other content, higher than general layout but potentially lower than header/nav popups */
+  display: flex;
+  justify-content: center;
+  align-items: flex-end; /* Align to bottom for "above footer" feel */
+  width: 100%; /* Max width will be on the popup itself */
+  padding: 0 1rem; /* Padding for mobile screens */
+  box-sizing: border-box;
+}
+
+.popup {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  padding: 1.5rem;
+  max-width: 500px; /* Not full width */
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.title {
+  font-family: var(--font-public-sans); /* From tailwind.config.js and globals.css */
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 0.5rem;
+}
+
+.text {
+  font-family: var(--font-roboto); /* From tailwind.config.js and globals.css */
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #4b5563;
+  margin-bottom: 1rem;
+}
+
+.privacyLink {
+  color: #1d4ed8; /* Blue link color */
+  text-decoration: underline;
+}
+
+.privacyLink:hover {
+  color: #1a43a7; /* Darker blue on hover */
+}
+
+.acceptButton {
+  background-color: #1d4ed8; /* Dark blue */
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: auto; /* Allow button to size itself */
+  align-self: center; /* Center the button in the flex column */
+}
+
+.acceptButton:hover {
+  background-color: #1a43a7; /* Darker blue on hover */
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .popup {
+    margin-bottom: 1rem; /* Adjust if it's too close on small screens */
+    padding: 1.2rem;
+  }
+
+  .title {
+    font-size: 1.1rem;
+  }
+
+  .text {
+    font-size: 0.9rem;
+  }
+
+  .acceptButton {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+}

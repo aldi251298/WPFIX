@@ -9,6 +9,7 @@ import Script from 'next/script';
 import UnderHeaderAd from '@/components/AdSlots/UnderHeaderAd';
 import FloatingFooterAd from '@/components/AdSlots/FloatingFooterAd';
 import { roboto, public_sans } from '../lib/fonts';
+import CookieConsent from '../components/CookieConsent/CookieConsent'; // Import the new component
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
@@ -36,6 +37,9 @@ export default function App({ Component, pageProps }) {
 
         {/* Konten Halaman */}
         <Component {...pageProps} key={router.asPath} />
+
+        {/* Cookie Consent Popup */}
+        <CookieConsent /> {/* */}
 
         <Footer />
 
