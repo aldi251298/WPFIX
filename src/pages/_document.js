@@ -8,16 +8,18 @@ class MyDocument extends Document {
   }
 
   render() {
+    const isAdsenseEnabled = process.env.NEXT_PUBLIC_ADSENSE_ENABLED === 'true'
+    const adClient = 'ca-pub-4083225081523366'
+
     return (
       <Html>
         <Head>
-          {/* Google AdSense script loaded in head to avoid data-nscript attribute */}
-          {process.env.NEXT_PUBLIC_ADSENSE_ENABLED === 'true' && (
+          {/* Google AdSense script loaded in head with client query param */}
+          {isAdsenseEnabled && (
             <script
               async
-              src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+              src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adClient}`}
               crossOrigin="anonymous"
-              data-ad-client="ca-pub-4083225081523366"
             ></script>
           )}
         </Head>
