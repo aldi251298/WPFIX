@@ -113,56 +113,33 @@
 }
 
 .sharePopup {
-    position: absolute;
-    top: 100%; /* Muncul di bawah tombol */
-    left: 50%;
-    transform: translateX(-50%) translateY(10px); /* Posisikan di tengah bawah tombol, sedikit ke bawah */
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-    padding: 0.75rem 1rem;
-    display: flex;
-    gap: 0.75rem;
-    flex-wrap: nowrap; /* Pastikan ikon tidak wrap */
-    z-index: 500; /* Pastikan di atas konten lain */
-    opacity: 0; /* Default: tersembunyi */
-    visibility: hidden; /* Default: tersembunyi */
-    pointer-events: none; /* Default: tidak bisa diinteraksi */
-
-    /* [PERBAIKAN] Transisi untuk menghilang: visibility berubah setelah opacity/transform selesai */
-    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s 0.3s; 
-}
-
-/* [PERBAIKAN] Class ini akan ditambahkan oleh JS saat popup terlihat */
-.sharePopup.sharePopupVisible {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(-50%) translateY(0px); /* Kembali ke posisi semula saat aktif */
-    pointer-events: auto; /* Izinkan interaksi */
-
-    /* [PERBAIKAN] Transisi untuk muncul: visibility berubah segera, opacity/transform animates */
-    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s; 
-}
-
-
-.sharePopupLink {
-  display: flex;
+  display: flex; /* Membuat ikon-ikon di dalamnya berjajar horizontal */
   align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  color: #fff;
+  gap: 8px; /* Memberi jarak antar ikon */
+  
+  position: absolute; /* Memposisikan popup berdasarkan .shareDropdownContainer */
+  bottom: 100%; /* Meletakkan popup tepat di atas tombol */
+  left: 50%;
+  transform: translateX(-50%); /* Menengahkan popup secara horizontal */
+  margin-bottom: 10px; /* Memberi sedikit jarak dari tombol */
+
+  background-color: #ffffff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 10; /* Memastikan popup muncul di atas elemen lain */
+}
+
+/* Menambahkan sedikit style untuk link di dalam popup */
+.sharePopupLink {
+  display: inline-flex;
   font-size: 1.2rem;
-  text-decoration: none;
-  border: none;
-  cursor: pointer;
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  color: #333;
+  transition: transform 0.2s ease;
 }
 
 .sharePopupLink:hover {
   transform: scale(1.1);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
 /* Warna spesifik untuk setiap platform */
@@ -312,3 +289,95 @@
     font-size: 0.9rem;
   }
 }
+/* === STYLE BARU UNTUK MODAL SHARE BOX DI TENGAH LAYAR === */
+
+/* Lapisan Latar Belakang */
+.shareModalOverlay {
+  position: fixed; /* Tetap di posisi yang sama bahkan saat scroll */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Hitam transparan */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Pastikan berada di lapisan paling atas */
+}
+
+/* Kotak Modal Putih */
+.shareModalBox {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 500px; /* Lebar maksimal modal */
+  position: relative; /* Untuk posisi tombol close */
+  text-align: center;
+}
+
+/* Judul di dalam Modal */
+.shareModalTitle {
+  font-family: var(--font-poppins);
+  font-weight: 600;
+  font-size: 1.25rem;
+  margin-top: 0;
+  margin-bottom: 2rem; /* Jarak dari judul ke ikon */
+  color: #333;
+}
+
+/* Tombol Close (X) */
+.shareModalCloseButton {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #aaa;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.shareModalCloseButton:hover {
+  color: #333;
+}
+
+/* Kontainer untuk tombol-tombol ikon */
+.shareModalButtons {
+  display: flex;
+  flex-wrap: wrap; /* Ikon akan turun ke baris baru jika tidak muat */
+  justify-content: center;
+  gap: 1rem; /* Jarak antar ikon */
+}
+
+/* Style untuk setiap tombol ikon (tetap sama seperti sebelumnya) */
+.popupShareButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 1.3rem;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.popupShareButton:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* Warna-warni platform (tetap sama) */
+.facebook   { background-color: #1877F2; }
+.twitter    { background-color: #1DA1F2; }
+.pinterest  { background-color: #E60023; }
+.flipboard  { background-color: #E12828; }
+.threads    { background-color: #000000; }
+.tumblr     { background-color: #36465D; }
+

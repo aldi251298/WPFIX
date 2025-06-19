@@ -82,7 +82,7 @@ export default function Component(props) {
   const { title, content, featuredImage, date, author, categories, comments, databaseId, uri, seo, viewCount } = post;
 
   const readingTimeText = calculateReadingTime(content);
-  const postUrl = `${process.env.NEXT_PUBLIC_SITE_URL || ''}${uri}`;
+  const postUrl = (process.env.NEXT_PUBLIC_FRONTEND_URL || (typeof window !== 'undefined' ? window.location.origin : '')) + uri;
   const ampUrl = `${postUrl.replace(/\/$/, '')}/amp`;
   const authorImage = author?.node?.avatar;
 
@@ -97,14 +97,15 @@ export default function Component(props) {
     setIsBookmarked(!isBookmarked);
   };
 
-  const socialPlatforms = [
-    { name: 'Facebook', icon: <FaFacebookF />, url: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(postUrl)}` },
-    { name: 'Twitter', icon: <FaTwitter />, url: `https://twitter.com/intent/tweet?url=${encodeURIComponent(postUrl)}&text=${encodeURIComponent(title)}` },
-    { name: 'Pinterest', icon: <FaPinterestP />, url: `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(postUrl)}&description=${encodeURIComponent(title)}` },
-    { name: 'Flipboard', icon: <FaFlipboard />, url: `https://share.flipboard.com/bookmarklet/popout?v=2&title=${encodeURIComponent(title)}&url=${encodeURIComponent(postUrl)}` },
-    { name: 'Threads', icon: <FaThreads />, url: `https://www.threads.net/share?url=${encodeURIComponent(postUrl)}&text=${encodeURIComponent(title)}` },
-    { name: 'Tumblr', icon: <FaTumblr />, url: `https://www.tumblr.com/widgets/share/tool?canonicalUrl=${encodeURIComponent(postUrl)}&title=${encodeURIComponent(title)}` },
-  ];
+  
+    const socialPlatforms = [
+    { name: 'Facebook', icon: <FaFacebookF />, url: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(postUrl)}`, className: styles.facebook },
+    { name: 'Twitter', icon: <FaTwitter />, url: `https://twitter.com/intent/tweet?text=${encodeURIComponent(title + '\n\n' + postUrl)}`, className: styles.twitter },
+    { name: 'Pinterest', icon: <FaPinterestP />, url: `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(postUrl)}&description=${encodeURIComponent(title)}`, className: styles.pinterest },
+    { name: 'Flipboard', icon: <FaFlipboard />, url: `https://share.flipboard.com/bookmarklet/popout?v=2&title=${encodeURIComponent(title)}&url=${encodeURIComponent(postUrl)}`, className: styles.flipboard },
+    { name: 'Threads', icon: <FaThreads />, url: `https://www.threads.net/share?url=${encodeURIComponent(postUrl)}&text=${encodeURIComponent(title)}`, className: styles.threads },
+    { name: 'Tumblr', icon: <FaTumblr />, url: `https://www.tumblr.com/widgets/share/tool?canonicalUrl=${encodeURIComponent(postUrl)}&title=${encodeURIComponent(title)}`, className: styles.tumblr },
+];
 
   return (
     <>
@@ -157,7 +158,7 @@ export default function Component(props) {
               <FiBookmark size="1.2em" />
             </button>
             
-            <div className={styles.shareDropdownContainer}>
+           
                 <button 
                 className={styles.metaActionButton} 
                 onClick={() => setShowSharePopup(!showSharePopup)}
@@ -166,23 +167,11 @@ export default function Component(props) {
                 <FiShare2 size="1.2em" />
                 </button>
 
-                {showSharePopup && (
-                    <div className={styles.sharePopup}>
-                        {socialPlatforms.map((platform) => (
-                            <a
-                                key={platform.name}
-                                href={platform.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className={styles.sharePopupLink}
-                                aria-label={`Share on ${platform.name}`}
-                            >
-                                {platform.icon}
-                            </a>
-                        ))}
-                    </div>
-                )}
-            </div>
+                
+                        
+                    
+                
+            
           </div>
 
         </div>
@@ -216,6 +205,41 @@ export default function Component(props) {
             <RelatedPosts categories={categories?.nodes} currentPostId={databaseId} />
           </div>
         </div>
+      {/* ===== KODE BARU UNTUK MODAL SHARE BOX ===== */}
+{showSharePopup && (
+  <div className={styles.shareModalOverlay} onClick={() => setShowSharePopup(false)}>
+    <div className={styles.shareModalBox} onClick={(e) => e.stopPropagation()}>
+
+      <h3 className={styles.shareModalTitle}>Bagikan Artikel Ini</h3>
+
+      <button 
+        className={styles.shareModalCloseButton} 
+        onClick={() => setShowSharePopup(false)}
+        aria-label="Tutup"
+      >
+        &times;
+      </button>
+
+      <div className={styles.shareModalButtons}>
+        {socialPlatforms.map((platform) => (
+          <a
+            key={platform.name}
+            href={platform.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`${styles.popupShareButton} ${platform.className}`}
+            aria-label={`Share on ${platform.name}`}
+            title={`Share on ${platform.name}`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {platform.icon}
+          </a>
+        ))}
+      </div>
+
+    </div>
+  </div>
+)}
       </main>
     </>
   );
