@@ -2,16 +2,23 @@
 
 import { gql, useQuery } from '@apollo/client';
 import Link from 'next/link';
+import Image from 'next/image';
 import styles from './RelatedPosts.module.css';
 
 // Query untuk mengambil post terkait
 const GET_RELATED_POSTS = gql`
   query GetRelatedPosts($categoryIn: [ID!], $notIn: [ID!]) {
-    posts(where: { categoryIn: $categoryIn, notIn: $notIn }, first: 4) {
+    posts(where: { categoryIn: $categoryIn, notIn: $notIn }, first: 6) {
       nodes {
         id
         title
         uri
+        categories(first: 1) {
+    nodes {
+      name
+      uri
+    }
+  }
         featuredImage {
           node {
             sourceUrl
@@ -51,28 +58,40 @@ export default function RelatedPosts({ categories, currentPostId }) {
     return null;
   }
 
-  return (
+return (
     <section className={styles.relatedPostsSection}>
       <h2 className={styles.sectionTitle}>Related Posts</h2>
-      <div className={styles.grid}>
-        {relatedPosts.map((post) => (
-          <div key={post.id} className={styles.card}>
-            <Link href={post.uri} className={styles.imageLink}>
-              <img
-                src={post.featuredImage?.node.sourceUrl || '/placeholder-image.png'}
-                alt={post.title}
-                className={styles.featuredImage}
-              />
-            </Link>
-            <div className={styles.cardContent}>
-              <h3 className={styles.cardTitle}>
-                <Link href={post.uri}>
-                  {post.title}
-                </Link>
-              </h3>
+      <div className={styles.postsGrid}>
+        {relatedPosts.map((post) => {
+          const primaryCategory = post.categories?.nodes?.[0];
+          return (
+            <div key={post.id} className={styles.postCard}>
+              <Link href={post.uri}>
+                {post.featuredImage?.node?.sourceUrl ? (
+                  <Image
+                    src={post.featuredImage.node.sourceUrl}
+                    alt={post.title}
+                    width={300}
+                    height={200}
+                    className={styles.featuredImage}
+                  />
+                ) : (
+                  <div className={styles.imagePlaceholder}></div>
+                )}
+              </Link>
+              <div className={styles.cardContent}>
+                {primaryCategory && (
+                  <Link href={primaryCategory.uri} className={styles.categoryLink}>
+                    {primaryCategory.name}
+                  </Link>
+                )}
+                <h3 className={styles.postTitle}>
+                  <Link href={post.uri}>{post.title}</Link>
+                </h3>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </section>
   );

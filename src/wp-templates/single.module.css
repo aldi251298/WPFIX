@@ -62,7 +62,7 @@
   align-items: center;
   gap: 0.5rem;
   font-size: 0.9rem;
-  color: #6b7280;
+  color: #070708;
 }
 
 .metaSeparator {
@@ -73,6 +73,8 @@
   display: flex;
   align-items: center;
   gap: 0.3rem;
+  color: #111827;
+  font-size: 1rem;
 }
 
 /* [PERUBAHAN BARU] Gaya untuk tombol bookmark dan share */

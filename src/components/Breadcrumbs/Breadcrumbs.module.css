@@ -1,40 +1,58 @@
 /* src/components/Breadcrumbs/Breadcrumbs.module.css */
-.breadcrumbs ol {
+
+.breadcrumbNav {
+  font-family: var(--font-poppins);
+  font-size: 0.875rem; /* Sedikit disesuaikan untuk kerapian */
+  margin-bottom: 1.5rem;
+  width: 100%;
+  /* Mencegah breadcrumb rusak di layar sangat kecil dengan membuatnya bisa discroll */
+  overflow-x: auto;
+  /* Menyembunyikan scrollbar visual */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+/* Menyembunyikan scrollbar visual untuk Chrome, Safari, Opera */
+.breadcrumbNav::-webkit-scrollbar {
+  display: none;
+}
+
+.breadcrumbList {
   display: flex;
   align-items: center;
   list-style: none;
+  margin: 0;
   padding: 0;
-  margin: 0 0 1rem 0;
-  flex-wrap: wrap; /* Tambahkan ini agar wrap di mobile */
-}
-.breadcrumbs li {
-  font-size: 0.85rem;
-  font-weight: 500;
-  flex-shrink: 0; /* Jangan biarkan item menyempit */
-}
-.breadcrumbs a {
-  color: #6b7280;
-  text-decoration: none;
-  transition: color 0.2s;
-}
-.breadcrumbs a:hover {
-  color: #1d4ed8;
-}
-.separator {
-  margin: 0 0.5rem;
-  color: #9ca3af;
+  /* KUNCI #1: Mencegah item turun baris dan 'bertumpuk' */
+  white-space: nowrap; 
 }
 
-/* === RESPONSIVE UNTUK BREADCRUMBS === */
-@media (max-width: 600px) {
-  .breadcrumbs ol {
-    justify-content: center; /* Pusatkan breadcrumbs di mobile */
-    gap: 0.25rem; /* Kurangi gap */
-  }
-  .breadcrumbs li {
-    font-size: 0.75rem; /* Ukuran font lebih kecil */
-  }
-  .separator {
-    margin: 0 0.2rem; /* Kurangi margin separator */
-  }
+/* KUNCI #2: Kita atur LI-nya juga untuk memastikan semua item di dalamnya sejajar */
+.breadcrumbList li {
+  display: flex;
+  align-items: center;
+}
+
+.separator {
+  /* Tidak perlu flex, cukup atur margin untuk jarak */
+  margin: 0 0.6rem;
+  font-size: 0.7rem;
+  color: #9ca3af;
+  /* Mencegah separator 'gepeng' */
+  flex-shrink: 0;
+}
+
+.breadcrumbList a, .currentPage {
+  color: #4b5563; /* Sedikit lebih lembut */
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+.breadcrumbList a:hover {
+  color: var(--primary-color);
+  text-decoration: underline;
+}
+
+.currentPage {
+  color: #1f2937; /* Warna lebih gelap untuk menandakan halaman aktif */
+  font-weight: 500;
 }

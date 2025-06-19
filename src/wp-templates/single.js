@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { FiClock, FiBookmark, FiShare2 } from 'react-icons/fi'; // Import new icons
 import { FaFacebookF, FaTwitter, FaPinterestP, FaFlipboard, FaThreads, FaTumblr } from 'react-icons/fa6'; // Specific social icons (using fa6 for Threads)
 import Comments from '../components/Comments/Comments';
+import ShareButtons from '../components/ShareButtons/ShareButtons';
 import RelatedPosts from '../components/RelatedPosts/RelatedPosts';
 import Sidebar from '../components/Sidebar/Sidebar';
 import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
@@ -40,35 +41,6 @@ export default function Component(props) {
   }, [data?.post?.databaseId]);
 
   // Handle closing popup when clicking outside or pressing ESC
-  useEffect(() => {
-    const handleEscape = (event) => {
-      if (event.key === 'Escape') {
-        setShowSharePopup(false);
-      }
-    };
-
-    const handleClickOutside = (event) => {
-      // Check if click is outside the button that opens it and outside the popup itself
-      // For simplicity, we just close it on any click outside the popup container
-      if (showSharePopup && !event.target.closest(`.${styles.shareDropdownContainer}`) && !event.target.closest(`.${styles.sharePopup}`)) {
-        setShowSharePopup(false);
-      }
-    };
-
-    if (showSharePopup) {
-      document.addEventListener('keydown', handleEscape);
-      document.addEventListener('mousedown', handleClickOutside);
-    } else {
-      document.removeEventListener('keydown', handleEscape);
-      document.removeEventListener('mousedown', handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener('keydown', handleEscape);
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [showSharePopup]);
-
 
   if (loading) {
     return <div>Loading...</div>;
@@ -85,6 +57,18 @@ export default function Component(props) {
   const postUrl = (process.env.NEXT_PUBLIC_FRONTEND_URL || (typeof window !== 'undefined' ? window.location.origin : '')) + uri;
   const ampUrl = `${postUrl.replace(/\/$/, '')}/amp`;
   const authorImage = author?.node?.avatar;
+  // TAMBAHKAN FUNGSI BARU DI SINI
+// >>> KODE FINAL YANG BERSIH <<<
+const handleShareClick = (e, shareUrl) => {
+  e.preventDefault();
+  e.stopPropagation();
+
+  // Langsung buka link di tab baru
+  window.open(shareUrl, '_blank', 'noopener,noreferrer');
+
+  // Langsung tutup modal tanpa jeda
+  setShowSharePopup(false);
+};
 
   const handleBookmark = () => {
     let bookmarks = JSON.parse(Cookies.get(BOOKMARK_COOKIE_NAME) || '[]');
@@ -115,7 +99,7 @@ export default function Component(props) {
       </Head>
 
       <main className={styles.container}>
-        <Breadcrumbs categories={categories?.nodes} />
+        <Breadcrumbs categories={categories?.nodes} postTitle={title} />
         <h1 className={styles.title} dangerouslySetInnerHTML={{ __html: title }} />
 
         {/* [PERUBAHAN BARU] Pemisah visual antara judul dan post meta */}
@@ -135,7 +119,7 @@ export default function Component(props) {
             <div className={styles.authorDetails}>
               <span className={styles.authorName}>{author.node.name}</span>
               <div className={styles.postDetails}>
-                <span className={styles.postDate}>{new Date(date).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric'})}</span>
+                <span className={styles.postDate}>{new Date(date).toLocaleDateString('en-EN', { day: 'numeric', month: 'long', year: 'numeric'})}</span>
                 <span className={styles.metaSeparator}>●</span>
                 <span className={styles.readingTime}><FiClock size="0.9em" /> {readingTimeText}</span>
                 {viewCount?.viewCount && viewCount.viewCount > 0 && ( /* Only show if viewCount is not null and > 0 */
@@ -190,32 +174,38 @@ export default function Component(props) {
             )}
             
             <InArticleTopAd />
-            <ContentRenderer htmlContent={content} />
+            <ContentRenderer
+  htmlContent={content}
+  categories={categories?.nodes}
+  currentPostId={databaseId}
+  
+/>
             <InArticleBottomAd />
           </article>
           
-          <aside className={styles.sidebar}>
-            <Sidebar />
-          </aside>
-
+          
           <div className={styles.postFooter}>
-            {/* The old ShareButtons component is now redundant or can be moved/removed if its functionality is fully replaced */}
-            {/* <ShareButtons title={title} url={postUrl} /> */} 
+           
+            <ShareButtons title={title} url={postUrl} />
             <Comments comments={comments?.nodes} postId={databaseId} />
             <RelatedPosts categories={categories?.nodes} currentPostId={databaseId} />
           </div>
+        <aside className={styles.sidebar}>
+            <Sidebar />
+          </aside>
+
         </div>
       {/* ===== KODE BARU UNTUK MODAL SHARE BOX ===== */}
 {showSharePopup && (
   <div className={styles.shareModalOverlay} onClick={() => setShowSharePopup(false)}>
     <div className={styles.shareModalBox} onClick={(e) => e.stopPropagation()}>
 
-      <h3 className={styles.shareModalTitle}>Bagikan Artikel Ini</h3>
+      <h3 className={styles.shareModalTitle}>Share this article</h3>
 
       <button 
         className={styles.shareModalCloseButton} 
         onClick={() => setShowSharePopup(false)}
-        aria-label="Tutup"
+        aria-label="Close"
       >
         &times;
       </button>
@@ -230,7 +220,7 @@ export default function Component(props) {
             className={`${styles.popupShareButton} ${platform.className}`}
             aria-label={`Share on ${platform.name}`}
             title={`Share on ${platform.name}`}
-            onClick={(e) => e.stopPropagation()}
+            onClick={(e) => handleShareClick(e, platform.url)}
           >
             {platform.icon}
           </a>

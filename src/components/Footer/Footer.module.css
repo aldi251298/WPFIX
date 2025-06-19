@@ -54,7 +54,7 @@
 }
 
 .footerLinks a {
-  color: #a0a0a0;
+  color: #f1eded;
   transition: color 0.2s ease-in-out;
 }
 
@@ -83,7 +83,7 @@
   border-top: 1px solid #333;
   text-align: center;
   padding: 1.5rem 0;
-  color: #777;
+  color: #fffbfb;
   font-size: 0.85rem;
 }
 /* === RESPONSIVE UNTUK FOOTER === */

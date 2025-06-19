@@ -4,36 +4,55 @@ import React from 'react';
 import parse, { domToReact } from 'html-react-parser';
 import Image from 'next/image';
 import InArticleMiddleAd from '../AdSlots/InArticleMiddleAd';
+import InlineRelatedPosts from '../InlineRelatedPosts/InlineRelatedPosts'; // 1. IMPORT KOMPONEN BARU
 
-const ContentRenderer = ({ htmlContent }) => {
-  // Ensure htmlContent is a string before parsing to prevent errors.
+// 2. TERIMA PROPS BARU (categories, currentPostId)
+const ContentRenderer = ({ htmlContent, categories, currentPostId }) => {
   if (typeof htmlContent !== 'string') {
     return null;
   }
   
   let pCount = 0;
   const AD_AFTER_PARAGRAPH = 6;
+  const RELATED_POSTS_AFTER_PARAGRAPH = 4; // Tentukan posisi related posts
 
   const options = {
     replace: (domNode) => {
-      // Logic to insert an ad after the 6th paragraph
+      // Logic to insert components after certain paragraphs
       if (domNode.name === 'p') {
         pCount++;
+
+        // 3. LOGIKA UNTUK MENYISIPKAN KOMPONEN
+        const componentsToInject = [];
+
+        if (pCount === RELATED_POSTS_AFTER_PARAGRAPH) {
+          componentsToInject.push(
+            <InlineRelatedPosts 
+              key="inline-related"
+              categories={categories} 
+              currentPostId={currentPostId} 
+            />
+          );
+        }
+        
         if (pCount === AD_AFTER_PARAGRAPH) {
+          componentsToInject.push(<InArticleMiddleAd key="inline-ad" />);
+        }
+
+        if (componentsToInject.length > 0) {
           return (
             <React.Fragment>
               <p>{domToReact(domNode.children, options)}</p>
-              <InArticleMiddleAd />
+              {componentsToInject}
             </React.Fragment>
           );
         }
       }
 
-      // Logic to replace <img> tags with next/image for optimization
+      // Logic to replace <img> tags with next/image
       if (domNode.name === 'img' && domNode.attribs) {
         const { src, alt, width, height, class: className } = domNode.attribs;
 
-        // Use next/image if width and height are available
         if (src && width && height) {
           return (
             <Image
@@ -48,7 +67,6 @@ const ContentRenderer = ({ htmlContent }) => {
           );
         }
 
-        // Fallback to a standard <img> tag if dimensions are missing
         if (src) {
             return (
                 <img
@@ -63,7 +81,6 @@ const ContentRenderer = ({ htmlContent }) => {
     },
   };
 
-  // The main return statement that parses the content
   return <div>{parse(htmlContent, options)}</div>;
 };
 

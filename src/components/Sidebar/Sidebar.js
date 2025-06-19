@@ -64,7 +64,7 @@ export default function Sidebar() {
       {/* Widget Iklan */}
       <div className={`${styles.adWidget} ${styles.stickyAdWidget}`}>
         {/* Judul Advertisement dikembalikan ke gaya aslinya agar kontras dengan widget random posts */}
-        <h3 className={styles.widgetTitle} style={{ color: '#111827', borderBottom: '3px solid #111827' }}>Advertisement</h3> 
+        <h5 className={styles.widgetTitle} style={{ color: '#111827', borderBottom: '3px solid #111827' }}>Ads</h5> 
         <SidebarAd />
       </div>
     </>

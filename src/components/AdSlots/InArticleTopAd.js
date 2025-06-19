@@ -12,7 +12,7 @@ export default function InArticleTopAd() {
   return (
     <div className="ad-container my-5 text-center min-h-[250px]">
       <AdSense
-        slotId="73540730040"       // GANTI dengan slot ID Anda untuk posisi In-Article Top
+        slotId="4213849166"       // GANTI dengan slot ID Anda untuk posisi In-Article Top
         format="auto"
         // Anda juga bisa menambahkan prop layoutKey jika ingin gunakan layout khusus:
         // layoutKey="-fg+5n+6t-e7+1u"

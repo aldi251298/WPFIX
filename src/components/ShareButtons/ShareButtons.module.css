@@ -75,6 +75,15 @@
   color: #16a34a;
 }
 
+/* Tambahkan style untuk platform baru dan tombol 'more' */
+.whatsapp   { background-color: #25D366; }
+.telegram   { background-color: #0088cc; }
+.reddit     { background-color: #FF4500; }
+.line       { background-color: #00B900; }
+
+.moreButton {
+  background-color: #6b7280; /* Warna abu-abu netral */
+}
 /* === RESPONSIVE UNTUK TOMBOL SHARE === */
 @media (max-width: 480px) {
   .buttonsGrid {

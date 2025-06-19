@@ -12,7 +12,7 @@ class MyDocument extends Document {
     const adClient = 'ca-pub-4083225081523366'
 
     return (
-      <Html>
+      <Html lang="en">
         <Head>
           {/* Google AdSense script loaded in head with client query param */}
           {isAdsenseEnabled && (
